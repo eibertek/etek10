@@ -1,0 +1,18 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block navbar %}
+    {{ parent() }}
+    <br/>
+{% endblock %}    
+{% block content %}
+    {{ parent() }}
+    <div class="etk_header_1 ">Datos Usuario:</div>
+    <div>
+        <div>Usuario: {{ app.user.username }} </div>
+        <div>Nombre:{{ app.user.Nombre }}</div>
+        <div>Apellido: {{ app.user.Apellido }}</div>
+        <div>Email: {{ app.user.Email }}</div>
+        
+    </div>
+{% endblock %}
+

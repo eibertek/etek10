@@ -1,0 +1,23 @@
+etk_sfp:
+    resource: "@EtkSFPBundle/Resources/config/routing.yml"
+    prefix:   /sfp
+
+etk_admin:
+    resource: "@EtkAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+EtkNoticiasBundle:
+       resource: "@EtkNoticiasBundle/Resources/config/routing.yml"
+       prefix:   /noticias
+
+EtkUsuariosBundle:
+        resource: "@EtkUsuariosBundle/Resources/config/routing.yml"
+        prefix:   /usuarios
+
+EtkProyectosBundle:
+        resource: "@EtkProyectosBundle/Resources/config/routing.yml"
+        prefix:   /proyectos
+
+etk_homepage_index:
+    path:     /
+    defaults: { _controller: EtkNoticiasBundle:Default:index }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Etk\Bundle\UsuariosBundle\Entity\Grupo" table="grupo">
+    <id name="id" type="guid" column="id">
+      <generator strategy="UUID"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="100" nullable="true"/>
+    <field name="createddate" type="datetime" column="createdDate" nullable="true"/>
+    <field name="permisos" type="string" column="permisos" length="255" nullable="true"/>
+  </entity>
+</doctrine-mapping>

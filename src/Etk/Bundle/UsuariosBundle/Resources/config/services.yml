@@ -1,0 +1,4 @@
+services:
+#    etk_usuarios.example:
+#        class: Etk\Bundle\UsuariosBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,53 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>Nuevo Registro</h1> 
+  <p>Por favor revise los datos</p> 
+</div>
+<div class="container">
+  <div class="container-fluid">
+            {{ form_start(formAlta) }}
+            {{ form_errors(formAlta) }}
+        <div class="form-group">
+            {{ form_label(formAlta.sfpPrincipal) }}
+            {{ form_errors(formAlta.sfpPrincipal) }}
+            {{ form_widget(formAlta.sfpPrincipal, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(formAlta.sfpFecha) }}
+            {{ form_errors(formAlta.sfpFecha) }}
+            {{ form_widget(formAlta.sfpFecha, { 'attr': {'class': 'form-control'} }) }}
+        </div>              
+        <div class="form-group">
+            {{ form_label(formAlta.sfpCaracter) }}
+            {{ form_errors(formAlta.sfpCaracter) }}
+            {{ form_widget(formAlta.sfpCaracter, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(formAlta.sfpRelacionDolar) }}
+            {{ form_errors(formAlta.sfpRelacionDolar) }}
+            {{ form_widget(formAlta.sfpRelacionDolar, { 'attr': {'class': 'form-control'} }) }}
+        </div>        
+        <div class="form-group">
+            {{ form_label(formAlta.sfpDescripcion) }}
+            {{ form_errors(formAlta.sfpDescripcion) }}
+            {{ form_widget(formAlta.sfpDescripcion, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div>
+            {{ form_widget(formAlta.Guardar, { 'attr': {'class': 'btn btn-default'} }) }}
+        </div>
+        {{ form_end(formAlta) }}
+    </div> 
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $.datepicker.formatDate("yyyy-mm-dd");
+        $( "#etk_bundle_sfpbundle_moneda_sfpFecha" ).datepicker({
+            inline: true, dateFormat: 'dd-mm-yy'
+        });
+    </script>
+{% endblock %}

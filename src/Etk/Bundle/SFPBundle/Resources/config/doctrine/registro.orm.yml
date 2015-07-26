@@ -1,0 +1,50 @@
+Etk\Bundle\SFPBundle\Entity\registro:
+    type: entity
+    table: sfp_registro
+    id:
+        sfpIdRegistro:
+            type: guid
+            column: sfp_IdRegistro
+            generator:
+                strategy: UUID
+    fields:
+        sfpNombre:
+            type: string
+            length: '1000'
+            column: sfp_nombre
+        sfpFecha:
+            type: date
+            column: sfp_fecha
+        sfpCuenta:
+            type: string
+            length: '36'
+            column: sfp_cuenta
+            nullable: TRUE
+        sfpTipo:
+            type: string
+            length: '36'
+            column: sfp_tipo
+        sfpMonto:
+            type: float
+            column: sfp_monto
+        sfpMoneda:
+            type: string
+            length: '36'
+            column: sfp_moneda
+        sfpDescripcion:
+            type: string
+            length: '4000'
+            column: sfp_descripcion
+            nullable: TRUE
+        sfpFechaAlta:
+            type: datetime
+            column: sfp_fecha_alta
+        sfpFechaEditado:
+            type: datetime
+            column: sfp_fecha_editado
+        sfpIdUsuario:
+            type: string
+            length: '36'
+            column: sfp_id_usuario
+            nullable: TRUE
+    lifecycleCallbacks: {  }

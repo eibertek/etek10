@@ -1,0 +1,58 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>Nuevo Registro</h1> 
+  <p>Por favor revise los datos</p> 
+</div>
+<div class="container">
+  <div class="container-fluid">
+            {{ form_start(formAlta) }}
+            {{ form_errors(formAlta) }}
+        <div class="form-group">
+            {{ form_label(formAlta.sfpNombre) }}
+            {{ form_errors(formAlta.sfpNombre) }}
+            {{ form_widget(formAlta.sfpNombre, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(formAlta.sfpTipo) }}
+            {{ form_errors(formAlta.sfpTipo) }}
+            {{ form_widget(formAlta.sfpTipo, { 'attr': {'class': 'form-control'} }) }}
+        </div>              
+        <div class="form-group">
+            {{ form_label(formAlta.sfpFecha) }}
+            {{ form_errors(formAlta.sfpFecha) }}
+            {{ form_widget(formAlta.sfpFecha, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(formAlta.sfpMoneda) }}
+            {{ form_errors(formAlta.sfpMoneda) }}
+            {{ form_widget(formAlta.sfpMoneda, { 'attr': {'class': 'form-control'} }) }}
+        </div>        
+        <div class="form-group">
+            {{ form_label(formAlta.sfpMonto) }}
+            {{ form_errors(formAlta.sfpMonto) }}
+            {{ form_widget(formAlta.sfpMonto, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(formAlta.sfpDescripcion) }}
+            {{ form_errors(formAlta.sfpDescripcion) }}
+            {{ form_widget(formAlta.sfpDescripcion, { 'attr': {'class': 'form-control'} }) }}
+        </div>        
+        <div>
+            {{ form_widget(formAlta.Guardar, { 'attr': {'class': 'btn btn-default'} }) }}
+        </div>
+        {{ form_end(formAlta) }}
+    </div> 
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $.datepicker.formatDate("yyyy-mm-dd");
+        $( "#etk_bundle_sfpbundle_registro_sfpFecha" ).datepicker({
+            inline: true, dateFormat: 'dd-mm-yy'
+        });
+    </script>
+{% endblock %}

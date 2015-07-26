@@ -1,0 +1,7 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
+{% endblock %}

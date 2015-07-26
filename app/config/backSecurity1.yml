@@ -1,0 +1,61 @@
+security:
+    encoders:
+        entity_admin:
+            class: MyBundle\Entity\AdminUser
+            algorithm: sha512
+            iterations: 5000
+            encode_as_base64: false
+        entity_members:
+            class: MyBundle\Entity\User
+            algorithm: sha512
+            iterations: 1000
+            encode_as_base64: false
+
+    providers:
+        entity_admin:
+            entity:
+                class: MyBundle\Entity\AdminUser
+                property: username
+        entity_members:
+            entity:
+                class: MyBundle\Entity\User
+                property: username
+
+    firewalls:
+        admin_secured_area:
+            pattern: /admin/.*
+            provider: entity_admin
+            anonymous: ~
+            form_login:
+                check_path: /admin/login_check
+                login_path: /admin/login
+            logout:
+                path:   /admin/logout
+                target: /admin/
+        members_secured_area:
+            pattern: /members/.*
+            provider: entity_members
+            anonymous: ~
+            form_login:
+                check_path: /members/login_check
+                login_path: /members/login
+            logout:
+                path:   /members/logout
+                target: /members/
+
+    access_control:
+        admin_login:
+            path: /admin/login
+            roles: IS_AUTHENTICATED_ANONYMOUSLY
+        admin_area:
+            path: /admin/.*
+            roles: ROLE_ADMIN
+        members_login:
+            path: /members/login
+            roles: IS_AUTHENTICATED_ANONYMOUSLY
+        members_register:
+            path: /members/register
+            roles: IS_AUTHENTICATED_ANONYMOUSLY
+        members_area:
+            path: /members/.*
+            roles: ROLE_USER

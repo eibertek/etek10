@@ -1,0 +1,8 @@
+etk_noticias_index:
+    path:     /
+    defaults: { _controller: EtkNoticiasBundle:Default:index }
+
+
+etk_noticias_test:
+    path:     /test
+    defaults: { _controller: EtkNoticiasBundle:Default:test }

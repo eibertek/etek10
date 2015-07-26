@@ -1,0 +1,89 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        Etk\Bundle\UsuariosBundle\Entity\Usuarios:
+           algorithm:          sha512
+           encode_as_base64:   true
+           iterations:         1000
+
+    role_hierarchy:
+        ROLE_USER:       ROLE_USER
+        ROLE_ADMIN:      ROLE_ADMIN
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        db_users:
+                   entity: {class: EtkUsuariosBundle:Usuarios, property: username}
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        homepage:
+            pattern:  ^/$
+            anonymous: ~
+
+        noticias:
+            pattern:  ^/noticias/
+            anonymous: ~
+            http_basic: ~
+            context: primary_auth  # new
+
+        usuarios_area:
+            pattern:    ^/usuarios/
+            provider: db_users
+            http_basic: ~
+            anonymous: ~
+            context: primary_auth  # new
+            form_login:
+                check_path: etk_usuarios_logincheck
+                login_path: etk_usuarios_login
+            logout:
+                path:   etk_usuarios_logout
+                target: etk_usuarios_homepage
+
+        sfp_area:
+            pattern:    ^/sfp/
+            provider: db_users
+            http_basic: ~
+            anonymous: ~
+            context: primary_auth  # new
+            form_login:
+                check_path: etk_usuarios_logincheck
+                login_path: etk_usuarios_login
+            logout:
+                path:   etk_usuarios_logout
+                target: etk_usuarios_homepage
+
+        secured_area:
+            pattern:    ^/admin/
+            provider: in_memory
+            context: admin_auth  # new
+            form_login:
+                check_path: etk_admin_logincheck
+                login_path: etk_admin_login
+            logout:
+                path:   etk_admin_logout
+                target: etk_homepage_index
+            anonymous: ~
+            http_basic: ~
+
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        # no authentication for the homepage:
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/*,     roles: ROLE_USER }
+        - { path: ^/admin/login,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/*,       roles: ROLE_ADMIN }
+        - { path: ^/noticias/*,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/sfp/*,     roles: ROLE_USER }
+
+        

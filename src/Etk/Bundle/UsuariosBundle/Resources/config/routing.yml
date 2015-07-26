@@ -1,0 +1,17 @@
+etk_usuarios_homepage:
+    path:     /
+    defaults: { _controller: EtkUsuariosBundle:Default:index }
+
+
+etk_usuarios_login:
+    path:     /login
+    defaults: { _controller: EtkUsuariosBundle:Default:login }
+
+
+etk_usuarios_logincheck:
+    path:     /logincheck
+    defaults: { _controller: EtkUsuariosBundle:Default:securityCheck }
+    
+etk_usuarios_logout:
+    path:     /logout
+    defaults: { _controller: EtkUsuariosBundle:Default:logout }    

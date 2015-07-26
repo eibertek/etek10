@@ -1,0 +1,37 @@
+etk_admin_homepage:
+    path:     /
+    defaults: { _controller: EtkAdminBundle:Default:index }
+
+etk_admin_users:
+    path:     /users/
+    defaults: { _controller: EtkAdminBundle:Default:users }
+
+etk_admin_noticias:
+    path:     /noticias
+    defaults: { _controller: EtkAdminBundle:Default:noticias }
+
+etk_admin_newUser:
+    path:     /users/new
+    defaults: { _controller: EtkAdminBundle:Default:newUser }
+
+etk_admin_newNoticias:
+    path:     /noticias/new
+    defaults: { _controller: EtkAdminBundle:Default:newNoticia }
+
+etk_admin_login:
+    path:     /login
+    defaults: { _controller: EtkAdminBundle:Default:login }
+
+
+etk_admin_logincheck:
+    path:     /logincheck
+    defaults: { _controller: EtkAdminBundle:Default:securityCheck }
+
+etk_admin_logout:
+    path:     /logout
+    defaults: { _controller: EtkAdminBundle:Default:logout }
+
+etk_admin_borrarNoticia:
+    path:     /borrar/noticia/
+    defaults: { _controller: EtkAdminBundle:Default:borrarNoticia }
+    methods: [POST]

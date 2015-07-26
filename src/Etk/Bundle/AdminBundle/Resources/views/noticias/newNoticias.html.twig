@@ -1,0 +1,49 @@
+{% extends "EtkAdminBundle::admin.layout.html.twig" %}
+{% block content %}
+    {{ parent() }}
+    Nuevo usuario: <br />
+    <div class="container-fluid">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="form-group">
+            {{ form_label(form.nombre) }}
+            {{ form_errors(form.nombre) }}
+            {{ form_widget(form.nombre, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+            {{ form_widget(form.descripcion, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.fecha) }}
+            {{ form_errors(form.fecha) }}
+            {{ form_widget(form.fecha, { 'attr': {'id': 'datepicker'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.titulo) }}
+            {{ form_errors(form.titulo) }}
+            {{ form_widget(form.titulo, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.subtitulo) }}
+            {{ form_errors(form.subtitulo) }}
+            {{ form_widget(form.subtitulo, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.cuerpo) }}
+            {{ form_errors(form.cuerpo) }}
+            {{ form_widget(form.cuerpo, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div>
+            {{ form_widget(form.Guardar, { 'attr': {'class': 'btn btn-default'} }) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{%  endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#etk_bundle_noticiasbundle_noticias_fecha").datepicker();
+    </script>
+{% endblock %}

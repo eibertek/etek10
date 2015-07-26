@@ -1,0 +1,29 @@
+Etk\Bundle\SFPBundle\Entity\moneda:
+    type: entity
+    table: sfp_moneda
+    repositoryClass: Etk\Bundle\SFPBundle\Entity\monedaRepository
+    id:
+        sfpIdMoneda:
+            type: guid
+            column: sfp_IdMoneda
+            generator:
+                strategy: UUID
+    fields:
+        sfpPrincipal:
+            type: boolean
+            column: sfp_principal
+        sfpFecha:
+            type: datetime
+            column: sfp_fecha
+        sfpCaracter:
+            type: string
+            length: '5'
+            column: sfp_caracter
+        sfpRelacionDolar:
+            type: float
+            column: sfp_relacion_dolar
+        sfpDescripcion:
+            type: string
+            length: '4000'
+            column: sfp_descripcion
+    lifecycleCallbacks: {  }

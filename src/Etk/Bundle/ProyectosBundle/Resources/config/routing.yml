@@ -1,0 +1,3 @@
+etk_proyectos_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EtkProyectosBundle:Default:index }

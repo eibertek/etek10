@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Etk\Bundle\UsuariosBundle\Entity\ProyectosComentario" table="proyectos_comentario">
+    <indexes>
+      <index name="proyectoId" columns="proyectoId"/>
+    </indexes>
+    <id name="id" type="guid" column="id">
+      <generator strategy="UUID"/>
+    </id>
+    <field name="descripcion" type="string" column="descripcion" length="2000" nullable="true"/>
+    <field name="createddate" type="datetime" column="createdDate" nullable="true"/>
+    <field name="likes" type="integer" column="likes" nullable="true"/>
+    <field name="notlikes" type="integer" column="notlikes" nullable="true"/>
+    <field name="replyto" type="integer" column="replyTo" nullable="true"/>
+    <many-to-one field="proyectoid" target-entity="Proyectos">
+      <join-columns>
+        <join-column name="proyectoId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

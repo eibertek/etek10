@@ -1,0 +1,35 @@
+etk_sfp_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EtkSFPBundle:Default:index }
+
+index:
+    path:     /
+    defaults: { _controller: EtkSFPBundle:registro:index }
+
+alta:
+    path:     /alta
+    defaults: { _controller: EtkSFPBundle:registro:alta }
+
+borrar:
+    path:     /borrar
+    defaults: { _controller: EtkSFPBundle:registro:borrar }
+
+modificar:
+    path:     /modificar
+    defaults: { _controller: EtkSFPBundle:registro:modificar }
+    
+monedaAlta:
+    path:     /moneda/alta
+    defaults: { _controller: EtkSFPBundle:Moneda:alta }
+
+monedaBaja:
+    path:     /moneda/baja
+    defaults: { _controller: EtkSFPBundle:Moneda:baja }
+
+monedaListar:
+    path:     /moneda/listar
+    defaults: { _controller: EtkSFPBundle:Moneda:listar }
+
+monedahomepage:
+    path:     /moneda/
+    defaults: { _controller: EtkSFPBundle:Moneda:listar }

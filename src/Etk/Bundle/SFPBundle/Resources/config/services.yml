@@ -1,0 +1,9 @@
+services:
+#    etk_sfp.example:
+#        class: Etk\Bundle\SFPBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    etk_sfp.type.moneda_selector:
+        class: Etk\Bundle\SFPBundle\Form\Type\MonedaSelectorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: moneda_selector }

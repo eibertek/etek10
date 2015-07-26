@@ -1,0 +1,36 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block content %}
+    <h2>Monedas</h2>
+    <ul>
+    {% for moneda in monedas %}
+        <li class="list-group-item">{{ moneda.sfpCaracter }} 
+           <button class="btn-primary pull-right borrarMoneda" id="{{ moneda.sfpIdMoneda }}" >Borrar</button>
+        </li> 
+    {% endfor %}
+    </ul>
+    {% for flashMessage in app.session.flashbag.get('moneda') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
+    <a href="{{path('monedaAlta')}}">Nueva moneda</a>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $().ready(function() {
+            $(".borrarMoneda").click(function(e) {
+                e.preventDefault();
+                var data={'id': this.id};
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('monedaBaja') }}',
+                    data: data
+                }).done(function( result ) {
+                    if(result.success) {
+                        window.location.reload();
+                    }
+                });
+            });
+        });        
+    </script>
+{% endblock %}
