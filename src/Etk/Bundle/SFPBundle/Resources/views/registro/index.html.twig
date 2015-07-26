@@ -1,7 +1,10 @@
-{% extends "::base.html.twig" %}
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
 
-{% block title %}EtkSFPBundle:registroController:index{% endblock %}
-
-{% block body %}
-<h1>Welcome to the registroController:index page</h1>
+{% block content %}
+    <div class="panel-title">Dashboard de Finanzas</div>
+    <div class="panel-body">Ultimos registros</div>
+        
+    {% for flashMessage in app.session.flashbag.get('message') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
 {% endblock %}

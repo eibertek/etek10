@@ -10,9 +10,10 @@ class registroController extends Controller
 {
     public function indexAction()
     {
-        // aca poner la pantalla de mostrar - que muestres los registros 2
+    // aca poner la pantalla de mostrar - que muestres los registros 2
+        $registros = Array();
         return $this->render('EtkSFPBundle:registro:index.html.twig', array(
-                // ...
+                "registros" => $registros
             )); 
     }
 
