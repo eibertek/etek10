@@ -11,7 +11,24 @@ class registroController extends Controller
     public function indexAction()
     {
     // aca poner la pantalla de mostrar - que muestres los registros 2
+        $em = $this->getDoctrine()->getManager();        
+        $recordSet = $em->getRepository("EtkSFPBundle:registro")->findAll();
         $registros = Array();
+        foreach($recordSet as $rs)
+        {
+            $rsMoneda = $em->getRepository("EtkSFPBundle:moneda")->find($rs->getSfpMoneda());
+            if($rsMoneda!=null){
+                    $registro = Array();
+                    $registro['id'] = $rs->getSfpIdRegistro();
+                    $registro['fecha'] = $rs->getSfpFecha()->format('d/m/Y');
+                    $registro['nombre'] = $rs->getSfpNombre();
+                    $registro['tipo'] = $rs->getSfpTipo();
+                    $registro['monto'] = $rsMoneda->getSfpCaracter();
+                    $registro['monto'].= ' '.$rs->getSfpMonto();
+                    $registro['descripcion'] = $rs->getSfpDescripcion();
+                    $registros[] = $registro;
+            }
+        }
         return $this->render('EtkSFPBundle:registro:index.html.twig', array(
                 "registros" => $registros
             )); 
@@ -22,14 +39,14 @@ class registroController extends Controller
         
         $registro = new registro();
         
-        $formAlta = $this->createForm(new registroType(), $registro);
-        
+        $formAlta = $this->createForm(new registroType(), $registro);        
         $formAlta->handleRequest($request);
  
         if ($formAlta->isValid()) {
+            $user = $this->getUser();
             $from = new \DateTime($registro->getSfpFecha());
             $registro->setSfpFecha($from);
-            
+            $registro->setSfpIdUsuario($user->getId());
             $em = $this->getDoctrine()->getManager();
             $em->persist($registro);
             $em->flush();
@@ -37,14 +54,33 @@ class registroController extends Controller
             $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('registro', 'Registro Guardado');
 
-            return  $this->render('EtkSFPBundle:registro:success.html.twig', array());    
+            // Reseteo datos
+            $registro = new registro();
+            $formAlta = $this->createForm(new registroType(), $registro);        
+            return  $this->render('EtkSFPBundle:registro:alta.html.twig', array('formAlta' => $formAlta->createView()));    
         }
         return $this->render('EtkSFPBundle:registro:alta.html.twig', array('formAlta' => $formAlta->createView()));    
         
     }
     
-    public function borrarAction()
+    public function borrarAction(\Symfony\Component\HttpFoundation\Request $request)
     {
+     if($request->get('id')!=null){
+            $em = $this->getDoctrine()->getManager();
+            if($request->isXmlHttpRequest()) {
+                $registro = $em->find('EtkSFPBundle:registro',$request->get('id'));
+                $result = $em->remove($registro);
+                $em->flush();
+                $session = $this->getRequest()->getSession();
+                $session->getFlashBag()->add('registro', 'Registro Borrado con exito');
+                $response = new \Symfony\Component\HttpFoundation\Response();
+                $output = array('success' => true);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent(json_encode($output));
+                return $response;
+            }
+        }   
+        //redirect
         return $this->render('EtkSFPBundle:registro:borrar.html.twig', array(
                 // ...
             ));    }

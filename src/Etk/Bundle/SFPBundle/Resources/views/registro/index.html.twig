@@ -3,8 +3,53 @@
 {% block content %}
     <div class="panel-title">Dashboard de Finanzas</div>
     <div class="panel-body">Ultimos registros</div>
-        
+    <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Monto</th>
+                        <th>Descripcion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+        {% for registro in registros %}
+                <tr class="{{ registro.tipo == '-' ? 'danger' : 'info' }}">
+                <td>{{ registro.fecha }}</td>
+                <td>{{ registro.nombre }}</td>
+                <td > {{ registro.monto }}</td>
+                <td>{{ registro.descripcion }}</td>
+                <td>
+                    <button class="btn-primary pull-right borrarRegistro" id="{{ registro.id }}" >Borrar</button>
+                </td>
+                </tr>
+        {% endfor %}
+            </table>
+    </div>    
+    <a href="{{path('alta')}}">Nuevo Registro</a>        
     {% for flashMessage in app.session.flashbag.get('message') %}
         <p>{{ flashMessage }}</p>
     {% endfor %}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $().ready(function() {
+            $(".borrarRegistro").click(function(e) {
+                e.preventDefault();
+                var data={'id': this.id};
+                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('registroBaja') }}',
+                    data: data
+                }).done(function( result ) {
+                    if(result.success) {
+                        window.location.reload();
+                    }
+                });
+            });
+        });        
+    </script>
+ {% endblock %}   

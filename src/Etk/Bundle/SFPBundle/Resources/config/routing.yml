@@ -10,8 +10,8 @@ alta:
     path:     /alta
     defaults: { _controller: EtkSFPBundle:registro:alta }
 
-borrar:
-    path:     /borrar
+registroBaja:
+    path:     /registro/borrar
     defaults: { _controller: EtkSFPBundle:registro:borrar }
 
 modificar:
