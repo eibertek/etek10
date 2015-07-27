@@ -44,6 +44,7 @@ class registroController extends Controller
     public function altaAction(\Symfony\Component\HttpFoundation\Request $request)
     {
         $session = $this->getRequest()->getSession();
+        //verificar que no coincidan los valores, porq ue esto tambien falla al tratar de dar un alta mas en este caso.
             if($session->getFlashBag()->get('registroId')!==Array()){
                            return $this->redirect(
                           $this->generateUrl("index")
