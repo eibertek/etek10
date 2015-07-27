@@ -1,6 +1,9 @@
 {% extends 'EtkNoticiasBundle::layout.html.twig' %}
 
 {% block content %}
+    {% for flashMessage in app.session.flashbag.get('registro') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}    
     <div class="panel-title">Dashboard de Finanzas</div>
     <div class="panel-body">Ultimos registros</div>
     <div>
@@ -25,12 +28,17 @@
                 </td>
                 </tr>
         {% endfor %}
+        <tfoot style="font-weight: bold">
+        <td>Total</td>
+        <td></td>
+        <td>{{ total }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tfoot>
             </table>
     </div>    
     <a href="{{path('alta')}}">Nuevo Registro</a>        
-    {% for flashMessage in app.session.flashbag.get('message') %}
-        <p>{{ flashMessage }}</p>
-    {% endfor %}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

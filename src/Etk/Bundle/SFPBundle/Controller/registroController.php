@@ -14,9 +14,16 @@ class registroController extends Controller
         $em = $this->getDoctrine()->getManager();        
         $recordSet = $em->getRepository("EtkSFPBundle:registro")->findAll();
         $registros = Array();
+        $total = 0;
+        $caracterMoneda = "$";
         foreach($recordSet as $rs)
         {
             $rsMoneda = $em->getRepository("EtkSFPBundle:moneda")->find($rs->getSfpMoneda());
+            if($rs->getSfpTipo()=='-'){
+                $total-=$rs->getSfpMonto();
+            }else{
+                $total+=$rs->getSfpMonto();
+            }
             if($rsMoneda!=null){
                     $registro = Array();
                     $registro['id'] = $rs->getSfpIdRegistro();
@@ -30,18 +37,23 @@ class registroController extends Controller
             }
         }
         return $this->render('EtkSFPBundle:registro:index.html.twig', array(
-                "registros" => $registros
+                "registros" => $registros, "total"=> $caracterMoneda.' '.$total
             )); 
     }
 
     public function altaAction(\Symfony\Component\HttpFoundation\Request $request)
     {
-        
+        $session = $this->getRequest()->getSession();
+            if($session->getFlashBag()->get('registroId')!==Array()){
+                           return $this->redirect(
+                          $this->generateUrl("index")
+                );
+            }
         $registro = new registro();
         
         $formAlta = $this->createForm(new registroType(), $registro);        
         $formAlta->handleRequest($request);
- 
+        
         if ($formAlta->isValid()) {
             $user = $this->getUser();
             $from = new \DateTime($registro->getSfpFecha());
@@ -51,9 +63,8 @@ class registroController extends Controller
             $em->persist($registro);
             $em->flush();
 
-            $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('registro', 'Registro Guardado');
-
+            $session->getFlashBag()->add('registroId', $registro->getSfpIdRegistro());
             // Reseteo datos
             $registro = new registro();
             $formAlta = $this->createForm(new registroType(), $registro);        

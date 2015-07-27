@@ -5,6 +5,11 @@
   <h1>Nuevo Registro</h1> 
   <p>Por favor revise los datos</p> 
 </div>
+<div class="info">
+ {% for flashMessage in app.session.flashbag.get('registro') %}
+        <p>{{ flashMessage }}</p>
+ {% endfor %}
+</div>
 <div class="container">
   <div class="container-fluid">
             {{ form_start(formAlta) }}
