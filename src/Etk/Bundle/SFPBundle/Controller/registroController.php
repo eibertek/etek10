@@ -37,7 +37,7 @@ class registroController extends Controller
             }
         }
         return $this->render('EtkSFPBundle:registro:index.html.twig', array(
-                "registros" => $registros, "total"=> $caracterMoneda.' '.$total
+                "registros" => $registros, "Total"=> $caracterMoneda.' '.$total
             )); 
     }
 
