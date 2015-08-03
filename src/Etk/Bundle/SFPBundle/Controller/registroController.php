@@ -44,17 +44,19 @@ class registroController extends Controller
     public function altaAction(\Symfony\Component\HttpFoundation\Request $request)
     {
         $session = $this->getRequest()->getSession();
-        //verificar que no coincidan los valores, porq ue esto tambien falla al tratar de dar un alta mas en este caso.
-            if($session->getFlashBag()->get('registroId')!==Array()){
-                           return $this->redirect(
-                          $this->generateUrl("index")
-                );
-            }
         $registro = new registro();
         
         $formAlta = $this->createForm(new registroType(), $registro);        
         $formAlta->handleRequest($request);
-        
+        //form_55bee17ee1846
+        $token = $formAlta->getData()->getuniqueToken();
+        $oldToken = $session->getFlashBag()->get('formtoken');
+       //verificar que no coincidan los valores, porq ue esto tambien falla al tratar de dar un alta mas en este caso.
+            if(isset($oldToken[0]) && $oldToken[0]==$token){
+                           return $this->redirect( $this->generateUrl("index") );
+            }
+            
+         
         if ($formAlta->isValid()) {
             $user = $this->getUser();
             $from = new \DateTime($registro->getSfpFecha());
@@ -66,6 +68,7 @@ class registroController extends Controller
 
             $session->getFlashBag()->add('registro', 'Registro Guardado');
             $session->getFlashBag()->add('registroId', $registro->getSfpIdRegistro());
+            $session->getFlashBag()->add('formtoken', $token);
             // Reseteo datos
             $registro = new registro();
             $formAlta = $this->createForm(new registroType(), $registro);        

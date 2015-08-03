@@ -28,6 +28,7 @@ class registroType extends AbstractType
             ->add('sfpMonto', 'number', array('label' => 'Monto:'))
             ->add('sfpMoneda', 'moneda_selector')
             ->add('sfpDescripcion', 'text', array('label' => 'Descripcion:','required' => false))
+            ->add('uniqueToken', 'hidden', array('data' => uniqid('form_')))    
             ->add('Guardar','submit')                
 //            ->add('sfpFechaAlta')
 //            ->add('sfpFechaEditado')

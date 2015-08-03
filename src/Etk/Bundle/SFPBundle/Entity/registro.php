@@ -65,6 +65,10 @@ class registro
      * @var string
      */
     private $sfpIdUsuario;
+    /**
+     * @var string
+     */
+    private $uniqueToken;
 
     public function __construct()
     {
@@ -324,4 +328,29 @@ class registro
     {
         return $this->sfpIdUsuario;
     }
+
+    /**
+     * Set uniqueToken
+     *
+     * @param string $token
+     * @return registro
+     */
+    public function setuniqueToken($token)
+    {
+        $this->uniqueToken = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get uniqueToken
+     *
+     * @return string 
+     */
+    public function getuniqueToken()
+    {
+        return $this->uniqueToken;
+    }
+    
+    
 }
