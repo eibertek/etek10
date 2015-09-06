@@ -8,7 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction($name)
     {
-        // @TODO ver bundle
         return $this->render('EtkSFPBundle:Default:index.html.twig', array('name' => $name));
     }
 }
