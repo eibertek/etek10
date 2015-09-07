@@ -2,6 +2,9 @@ etk_noticias_index:
     path:     /
     defaults: { _controller: EtkNoticiasBundle:Default:index }
 
+etk_contact:
+    path:     /contacto
+    defaults: { _controller: EtkNoticiasBundle:Default:contact }
 
 etk_noticias_test:
     path:     /test

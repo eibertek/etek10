@@ -15,7 +15,6 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         db_users:
                    entity: {class: EtkUsuariosBundle:Usuarios, property: username}

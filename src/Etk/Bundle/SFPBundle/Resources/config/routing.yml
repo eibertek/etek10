@@ -1,8 +1,4 @@
-etk_sfp_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: EtkSFPBundle:Default:index }
-
-index:
+sfp_index:
     path:     /
     defaults: { _controller: EtkSFPBundle:registro:index }
 

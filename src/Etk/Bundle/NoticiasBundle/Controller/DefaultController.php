@@ -13,8 +13,8 @@ class DefaultController extends Controller
     }
 
 
-    public function testAction()
+    public function contactAction()
     {
-        return $this->render('EtkNoticiasBundle:Default:test1.html.twig');
+        return $this->render('EtkNoticiasBundle:Default:contacto.html.twig');
     }
 }

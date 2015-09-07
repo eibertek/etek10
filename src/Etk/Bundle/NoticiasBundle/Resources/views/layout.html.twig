@@ -6,13 +6,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Diseño de paginas web, aplicaciones web">
+        <meta name="author" content="Mariano Eiberman">
     {% endblock %}
 
     {% block stylesheets %}
         <link href="{{ asset('bundles/etknoticias/css/bootstrap.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('bundles/etknoticias/css/bootstrap-responsive.css') }}" type="text/css" rel="stylesheet">
+        <!-- link href="{{ asset('bundles/etknoticias/css/bootstrap-responsive.css') }}" type="text/css" rel="stylesheet" -->
         <link href="{{ asset('bundles/etknoticias/css/jquery-ui.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/etknoticias/css/jquery-ui.structure.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/etknoticias/css/jquery-ui.theme.css') }}" rel="stylesheet">
@@ -22,7 +22,7 @@
     
 
     {% block title %}
-        <title>Logo Nav - Start Bootstrap Template</title>
+        <title>Eibertek - Aplicaciones Web</title>
     {% endblock %}
     <!-- Custom CSS -->
 
@@ -42,20 +42,23 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">
-                        <img src="{{ asset('bundles/etknoticias/images/Logo-Etk.png') }}"  width=100 alt="">
+                        <img src="{{ asset('bundles/etknoticias/images/logo.png') }}"  height="60px" alt="">
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
+                            <a href="{{ path('etk_homepage_index') }}">Inicio</a>
+                        </li>                        
+                        <li>
                             <a href="{{ path('etk_usuarios_homepage') }}">Usuarios</a>
                         </li>
                         <li>
-                            <a href="{{ path('index') }}">Sistema de Finanzas Personales</a>
+                            <a href="{{ path('sfp_index') }}">Sistema de Finanzas Personales</a>
                         </li>
                         <li>
-                            <a href="{{ path('etk_homepage_index') }}">Contact</a>
+                            <a href="{{ path('etk_contact') }}">Contacto</a>
                         </li>
                     </ul>
                 </div>
