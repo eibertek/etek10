@@ -1,203 +1,68 @@
-@@ -1,4 +1,26 @@
-etk2014
-=======
+Symfony Standard Edition
+========================
 
-Sistema estandar de symfony2 para pruebas
-:::::::::::::::::::::::::::::::::::Objetivos:::::::::::::::::::::::::::::::::::::
+Welcome to the Symfony Standard Edition - a fully-functional Symfony
+application that you can use as the skeleton for your new applications.
 
-Hito 1 
+For details on how to download and get started with Symfony, see the
+[Installation][1] chapter of the Symfony Documentation.
 
-    Crea una webpage que contenga
+What's inside?
+--------------
 
-        Ambos son paginas libres para los usuarios
-        Inicio Pagina con un quienes somos y noticias de la web  
-        Proyectos Pagina con un newsfeed que se retroalimenta de la db
-        Contacto, permite enviar mails  y tiene datos de contacto
-        vinculacion con Facebook
+The Symfony Standard Edition is configured with the following defaults:
 
-    Sistema de admin
+  * An AppBundle you can use to start coding;
 
-        Inicio con un menu de herramientas para subir nuevas noticias, datos de los proyectos
-        Mensajes envio de mensajes a los distintos usuarios
-        ABM de usuarios y baneo de los mismos
+  * Twig as the only configured template engine;
 
-    Sistema de usuarios
-    Inicio con datos del perfil y estadisticas
-    modificar perfil
+  * Doctrine ORM/DBAL;
 
+  * Swiftmailer;
 
-Dia 2:
+  * Annotations enabled for everything.
 
-    Crear Bundles
-        Bundle de noticias: va a tener la pagina de inicio y controlador modelo vista de noticias
-        Bundle d eproyectos idem pero en proyectos
-        Bundle de usuarios con el login, y pagina con subpagina de usuarios (ver perfil y enviar mensajes)
+It comes pre-configured with the following bundles:
 
+  * **FrameworkBundle** - The core Symfony framework bundle
 
-app - etk
+  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
+    template and routing annotation capability
 
-noticias: EtkNoticiasBundle
-proyectos: EtkProyectosBundle
-usuarios: EtkUsuariosBundle
+  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
 
+  * [**TwigBundle**][8] - Adds support for the Twig templating engine
 
-Una vez creados los bundles generar las entidades
+  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
+    component
 
-    entidad Usuarios:
-            id
-            nombre
-            apellido
-            email
-            username
-            password
-            createdDate
-            UntilBannedDate
-            modifiedDate
-            Role
-            Group
+  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
+    sending emails
 
+  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
 
-    entidad Noticias
-            id
-            userId
-            Nombre
-            Descripcion
-            Fecha
-            FechaPublicacion
-            Titulo
-            Subtitulo
-            Cuerpo
-            createdDate
+  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
+    the web debug toolbar
 
-    entidad Noticias_comentario
-            id
-            noticiasId
-            descripcion
-            createdDate
-            likes
-            notlikes
-            replyto
+  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
+    configuring and working with Symfony distributions
 
-    entidad Proyectos
-            id
-            nombre
-            fecha_comienzo
-            status
-            createdDate
+  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
+    capabilities
 
-    entidad Proyectos_comentario
-            id
-            proyectoId
-            descripcion
-            createdDate
-            likes
-            notlikes
+  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
+    integration
 
-                
-	entidad Grupo
-		    id
-		    nombre
-		    createdDate
+All libraries and bundles included in the Symfony Standard Edition are
+released under the MIT or BSD license.
 
+Enjoy!
 
-relaciones
-
-  usuarios.group -> grupo.id
-  noticias.userId-> usuarios.id
-  proyectos_comentario.proyectoId -> Proyecto.id
-
-
-manejo de roles
-		usuario comun user_role
-		usuario admin user_admin
-
-/***  ejemplo para pruebas ***/
-CREATE TABLE accounts(
-    account_id INT NOT NULL AUTO_INCREMENT,
-    customer_id INT( 4 ) NOT NULL ,
-    account_type ENUM( 'savings', 'credit' ) NOT NULL,
-    balance FLOAT( 9 ) NOT NULL,
-    PRIMARY KEY ( account_id ),
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
-) ENGINE=INNODB;
-
-/*** ********************** ***/
-
-use etksample;
-CREATE TABLE IF NOT EXISTS etksample.Usuarios(
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre varchar(100),
-  apellido varchar(100),
-  email varchar(255),
-  username varchar(20),
-  password VARCHAR(255),
-  createdDate datetime,
-  unitBannedDate datetime,
-  modifiedDate datetime,
-  role varchar(20),
-  user_group int,
-  PRIMARY KEY ( id )
-) ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS etksample.Grupo(
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre varchar(100),
-  createdDate datetime,
-  permisos varchar(255),
-  PRIMARY KEY ( id )
-) ENGINE=INNODB;
-
-ALTER TABLE etksample.Usuarios
-ADD CONSTRAINT `FK_myKey` FOREIGN KEY (`user_group`)
-REFERENCES `Grupo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-CREATE TABLE IF NOT EXISTS etksample.Noticias(
-  id INT NOT NULL AUTO_INCREMENT,
-  userId INT NOT NULL,
-  nombre varchar(1000),
-  descripcion varchar(2000),
-  fecha datetime,
-  fechaPublicacion datetime,
-  titulo VARCHAR(1000),
-  subtitulo VARCHAR(1000),
-  cuerpo VARCHAR(5000),
-  createdDate datetime,
-  modifiedDate datetime,
-  PRIMARY KEY ( id ),
-  FOREIGN KEY (userId) REFERENCES usuarios(id)
-) ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS etksample.Noticias_comentario(
-  id INT NOT NULL AUTO_INCREMENT,
-  noticiasId INT,
-  descripcion VARCHAR(2000),
-  createdDate datetime,
-  likes int,
-  notlikes int,
-  replyTo int,
-  PRIMARY KEY ( id ),
-  FOREIGN KEY (noticiasId) REFERENCES Noticias(id)
-) ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS etksample.Proyectos(
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre varchar(1000),
-  descripcion varchar(2000),
-  fecha_comienzo datetime,
-  status VARCHAR(200),
-  createdDate datetime,
-  modifiedDate datetime,
-  PRIMARY KEY ( id )
-) ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS etksample.Proyectos_comentario(
-  id INT NOT NULL AUTO_INCREMENT,
-  proyectoId INT,
-  descripcion VARCHAR(2000),
-  createdDate datetime,
-  likes int,
-  notlikes int,
-  replyTo int,
-  PRIMARY KEY ( id ),
-  FOREIGN KEY (proyectoId) REFERENCES Proyectos(id)
-) ENGINE=INNODB;
+[1]:  https://symfony.com/doc/2.8/book/installation.html
+[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+[7]:  https://symfony.com/doc/2.8/book/doctrine.html
+[8]:  https://symfony.com/doc/2.8/book/templating.html
+[9]:  https://symfony.com/doc/2.8/book/security.html
+[10]: https://symfony.com/doc/2.8/cookbook/email.html
+[11]: https://symfony.com/doc/2.8/cookbook/logging/monolog.html
+[13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
