@@ -1,0 +1,12 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block navbar %}
+    {{ parent() }}
+    <br/>
+{% endblock %} 
+{% block content %}
+    {{ parent() }}
+
+Listo! has creado el usuario<br/>
+<a href="{{ path('etk_usuarios_login') }}">Volver</a>
+{% endblock %} 

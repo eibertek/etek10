@@ -15,7 +15,7 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    eibermanm: { password: q1w2e3r4, roles: [ 'ROLE_ADMIN' ] }
         db_users:
                    entity: {class: EtkUsuariosBundle:Usuarios, property: username}
 
@@ -47,6 +47,13 @@ security:
                 path:   etk_usuarios_logout
                 target: etk_usuarios_homepage
 
+        nuevo_usuario:
+            pattern:    ^/usuarios/nuevo/
+            provider: db_users
+            http_basic: ~
+            anonymous: ~
+            context: primary_auth  # new
+    
         sfp_area:
             pattern:    ^/sfp/
             provider: db_users
@@ -79,6 +86,7 @@ security:
         # no authentication for the homepage:
         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/nuevo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/*,     roles: ROLE_USER }
         - { path: ^/admin/login,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/*,       roles: ROLE_ADMIN }

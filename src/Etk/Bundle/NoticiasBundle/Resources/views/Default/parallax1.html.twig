@@ -1,0 +1,23 @@
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
+
+
+{% block mytitle %}Pagina en Version Parallax{% endblock %}
+
+{% block content %}
+<div id="container" ng-controller="exampleController">
+<h1 parallax parallax-ratio="1" parallax-vertical-offset="10" parallax-horizontal-offset="500" class="parallax">Angular Parallax</h1>
+<div parallax-background class="photo universe" parallax-ratio="1">universe 1</div>
+<div parallax-background class="photo universe2" parallax-ratio="0.5"><span style="font-size:1em;">Modulo 1</span></div>
+<div parallax-background class="photo universe" parallax-ratio="0.3" parallax-vertical-offset="40"><span style="font-size:4em;">Modulo 2</span></div>
+<div parallax-background class="photo universe2" parallax-ratio="1" parallax-vertical-offset="140">Modulo 3</div>
+<div parallax-background class="photo universe" parallax-ratio="0.5" parallax-vertical-offset="60"><span style="font-size:4em;">Modulo 5</span></div>
+<div parallax-background class="photo universe2" parallax-ratio="0.3">Modulo 6</div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    app.controller('exampleController',function($scope){
+    });
+</script>
+{% endblock %}

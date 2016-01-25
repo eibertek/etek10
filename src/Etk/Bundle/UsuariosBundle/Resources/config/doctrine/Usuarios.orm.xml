@@ -16,6 +16,7 @@
     <field name="unitbanneddate" type="datetime" column="unitBannedDate" nullable="true"/>
     <field name="modifieddate" type="datetime" column="modifiedDate" nullable="true"/>
     <field name="role" type="string" column="role" length="20" nullable="true"/>
+    <field name="status" type="string" column="status" length="20" nullable="true"/>
     <many-to-one field="userGroup" target-entity="Grupo">
       <join-columns>
         <join-column name="user_group" referenced-column-name="id"/>

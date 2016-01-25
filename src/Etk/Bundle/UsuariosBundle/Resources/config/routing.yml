@@ -15,3 +15,7 @@ etk_usuarios_logincheck:
 etk_usuarios_logout:
     path:     /logout
     defaults: { _controller: EtkUsuariosBundle:Default:logout }    
+    
+etk_usuarios_registerUser:
+    path:     /nuevo
+    defaults: { _controller: EtkUsuariosBundle:Default:registerUser }    

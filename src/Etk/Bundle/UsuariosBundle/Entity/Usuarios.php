@@ -2,6 +2,7 @@
 
 namespace Etk\Bundle\UsuariosBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
 {
+    
+    const NOT_VALIDATED = 'NOT_VALIDATED';
+    const ACTIVE = 'ACTIVE';
+    const DISABLED = 'DISABLED';
     /**
      * @var string
      */
@@ -20,7 +25,10 @@ class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
     private $apellido;
 
     /**
-     * @var string
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -49,6 +57,11 @@ class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
      */
     private $modifieddate;
 
+    /**
+     * @var string
+     */
+    private $status;
+    
     /**
      * @var string
      */
@@ -251,6 +264,31 @@ class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
         return $this->modifieddate;
     }
 
+        /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Usuarios
+     */
+    public function setStatus($status)
+    {
+        if($status === self::ACTIVE || $status === self::NOT_VALIDATED || $status === self::DISABLED){
+            $this->status = $status;
+            return $this;
+        }
+        return false;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
     /**
      * Set role
      *
@@ -284,6 +322,15 @@ class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
         return $this->id;
     }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
     /**
      * Set userGroup
      *

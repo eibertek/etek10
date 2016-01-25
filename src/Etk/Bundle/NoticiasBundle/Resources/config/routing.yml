@@ -7,5 +7,5 @@ etk_contact:
     defaults: { _controller: EtkNoticiasBundle:Default:contact }
 
 etk_noticias_test:
-    path:     /test
-    defaults: { _controller: EtkNoticiasBundle:Default:test }
+    path:     /parallax1
+    defaults: { _controller: EtkNoticiasBundle:Default:parallax1 }

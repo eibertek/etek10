@@ -17,4 +17,9 @@ class DefaultController extends Controller
     {
         return $this->render('EtkNoticiasBundle:Default:contacto.html.twig');
     }
+    
+    public function parallax1Action()
+    {
+        return $this->render('EtkNoticiasBundle:Default:parallax1.html.twig');
+    }    
 }
