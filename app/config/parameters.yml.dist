@@ -2,9 +2,9 @@
 parameters:
     database_host: 127.0.0.1
     database_port: null
-    database_name: eibertek
-    database_user: eibertek
-    database_password: m4a5y8o2
+    database_name: testfile
+    database_user: testuser
+    database_password: 123456
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
