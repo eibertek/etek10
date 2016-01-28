@@ -11,8 +11,9 @@ class registroController extends Controller
     public function indexAction()
     {
     // aca poner la pantalla de mostrar - que muestres los registros 2
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();        
-        $recordSet = $em->getRepository("EtkSFPBundle:registro")->findAll();
+        $recordSet = $em->getRepository("EtkSFPBundle:registro")->findBy(Array('sfpIdUsuario'=>$user->getId()));
         $registros = Array();
         $total = 0;
         $caracterMoneda = "$";

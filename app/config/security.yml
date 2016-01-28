@@ -87,6 +87,7 @@ security:
         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/nuevo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/activar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/*,     roles: ROLE_USER }
         - { path: ^/admin/login,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/*,       roles: ROLE_ADMIN }

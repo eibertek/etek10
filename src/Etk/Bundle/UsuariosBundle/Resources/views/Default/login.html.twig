@@ -2,11 +2,9 @@
 
 {% block content %}
     <h1 class="title">Login</h1>
-
-    {% if error %}
-        <div class="error">{{ error.message }}</div>
-    {% endif %}
-
+   {% for flashMessage in app.session.flashbag.get('notice') %}
+       <span style="color:green; font-weight: 400"> {{ flashMessage }} </span><br/>
+   {% endfor %}  
     <form action="{{ path("etk_usuarios_logincheck") }}" method="post" id="login">
         <div>
             <label for="username">Username</label>
@@ -26,6 +24,12 @@
             </span>
         </button>
     </form>
+    
+    {% if error %}
+        <div class="error">{{ error.message }}</div>
+        <div><img src="{{ asset('bundles/etknoticias/images/magicword.gif') }}"></div>
+    {% endif %}
+    <a class="h3 center-block" href="{{ path("etk_usuarios_registerUser") }}"> >>> Crear Nuevo Usuario <<< </a>            
 {% endblock %}
 
 

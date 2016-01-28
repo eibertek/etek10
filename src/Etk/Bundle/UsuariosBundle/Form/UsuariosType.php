@@ -5,6 +5,8 @@ namespace Etk\Bundle\UsuariosBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UsuariosType extends AbstractType
 {
@@ -19,7 +21,11 @@ class UsuariosType extends AbstractType
             ->add('apellido', 'text')
             ->add('email', 'email')
             ->add('username', 'text')
-            ->add('password', 'password')
+            ->add('plainPassword', 'repeated', array(
+                'type' => 'password',
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
+            ))       
             ->add('Guardar','submit')
             ->getForm()
         ;
@@ -42,4 +48,10 @@ class UsuariosType extends AbstractType
     {
         return 'etk_bundle_usuariosbundle_usuarios';
     }
+    
 }
+
+
+
+    
+    

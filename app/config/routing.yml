@@ -20,4 +20,4 @@ EtkProyectosBundle:
 
 etk_homepage_index:
     path:     /
-    defaults: { _controller: EtkNoticiasBundle:Default:index }
+    defaults: { _controller: EtkNoticiasBundle:Default:parallax1 }

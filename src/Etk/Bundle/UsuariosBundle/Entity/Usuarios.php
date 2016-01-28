@@ -43,6 +43,11 @@ class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
     private $password;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max = 4096)
+     */
+    private $plainPassword;
+    /**
      * @var \DateTime
      */
     private $createddate;
@@ -367,4 +372,13 @@ class Usuarios implements \Symfony\Component\Security\Core\User\UserInterface
         return $roles;
     }
 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }    
 }

@@ -6,6 +6,9 @@
 {% endblock %}    
 {% block content %}
     {{ parent() }}
+   {% for flashMessage in app.session.flashbag.get('notice') %}
+       <span style="color:green; font-weight: 400"> {{ flashMessage }} </span><br/>
+   {% endfor %}     
     <div class="etk_header_1 ">Datos Usuario:</div>
     <div>
         <div>Usuario: {{ app.user.username }} </div>

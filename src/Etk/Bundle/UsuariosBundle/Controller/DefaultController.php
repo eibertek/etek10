@@ -32,7 +32,7 @@ class DefaultController extends Controller
         } else {
             $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
         }
-
+        $request->getSession()->remove(SecurityContext::AUTHENTICATION_ERROR);
         $result =  array(
             'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
@@ -64,7 +64,7 @@ class DefaultController extends Controller
                 $usuarios = $form->getData();
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($usuarios);
-                $pasword = $encoder->encodePassword($usuarios->getPassword(), $usuarios->getSalt());
+                $pasword = $encoder->encodePassword($usuarios->getPlainPassword(), $usuarios->getSalt());
                 $usuarios->setPassword($pasword);
                 $usuarios->setCreateddate(new \DateTime("now"));
                 $usuarios->setRole('ROLE_USER');
@@ -78,7 +78,7 @@ class DefaultController extends Controller
                     $this->sendmail($usuarios);
                     return $this->render('EtkUsuariosBundle:messages:success.html.twig', array(  'msg' => 'Se ha creado el usuario con exito', 'path' => 'etk_usuarios_login'));
                 }else{
-                    $this->get('session')->getFlashBag()->add('error', 'EL Usuario que intenta crear ya está registrado, si no recuerda su contraseña vaya al login y haga click en recuperar contraseña');
+                    $this->get('session')->getFlashBag()->add('error', 'El Usuario que intenta crear ya está registrado, si no recuerda su contraseña vaya al login y haga click en recuperar contraseña');
                     return $this->render('EtkUsuariosBundle:Default:nuevo.html.twig', array(  'form' => $form->createView(),));
                 }
             }else{
@@ -95,18 +95,7 @@ class DefaultController extends Controller
         // The security layer will intercept this request
     }
     
-    private function avoidDuplicatesFlash(){
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
-        var_dump($session->getFlashBag()->get('notice'));  
-        if($session->getFlashBag()->get('notice')){
-            return false;
-        }else{
-            // set flash messages
-            $session->getFlashBag()->add('notice', 'Usuario Ya creado');
-            return true;
-        }
-    }
-    
+   
     private function sendmail($usuarios){
         $message = \Swift_Message::newInstance()
         ->setSubject('Bienvenido a Eibertek!')
@@ -131,4 +120,12 @@ class DefaultController extends Controller
             return true;
         }
     }
+    
+    public function activarAction()
+    {
+        // The security layer will intercept this request
+       $this->get('session')->getFlashBag()->add('notice', 'Usuario Activado con exito');
+       return $this->redirectToRoute('etk_usuarios_homepage');
+    }
+    
 }
