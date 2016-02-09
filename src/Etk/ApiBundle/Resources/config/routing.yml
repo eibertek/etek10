@@ -1,0 +1,7 @@
+etk_api_homepage:
+    path:     /user/{id}
+    defaults: { _controller: EtkApiBundle:Usuarios:getUser }
+
+etk_api_getUsers:
+    path:     /listUsers
+    defaults: { _controller: EtkApiBundle:Usuarios:getUsers }

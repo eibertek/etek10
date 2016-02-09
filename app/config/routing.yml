@@ -1,3 +1,7 @@
+etk_api:
+    resource: "@EtkApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 etk_sfp:
     resource: "@EtkSFPBundle/Resources/config/routing.yml"
     prefix:   /sfp

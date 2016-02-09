@@ -1,0 +1,7 @@
+services:
+    sha256salted_encoder:
+        class: Etk\ApiBundle\Service\Sha256Salted
+    preDispatch.preexecute:
+        class: Etk\ApiBundle\Service\PreDispatch
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }        

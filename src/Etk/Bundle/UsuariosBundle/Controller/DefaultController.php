@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Etk\Bundle\UsuariosBundle\Entity\Usuarios as UsuarioEntity;
+use Etk\Bundle\UsuariosBundle\Entity\Activationlink as ActivationEntity;
+
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -73,9 +75,12 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($usuarios);
                     $em->flush();
-                    $search = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Usuarios')->findBy(array('email' => $usuarios->getEmail(), 'username'=>$usuarios->getUsername()));
-                    $usuarios->setId($search[0]->getId());
-                    $this->sendmail($usuarios);
+                    $activationLink = new ActivationEntity();
+                    $activationLink->setUserId($usuarios->getId());
+                $activationLink->setExpireDate( new \DateTime('tomorrow'));
+                    $em->persist($activationLink);
+                    $em->flush();
+                    $this->sendmail($usuarios,$activationLink->getId());
                     return $this->render('EtkUsuariosBundle:messages:success.html.twig', array(  'msg' => 'Se ha creado el usuario con exito', 'path' => 'etk_usuarios_login'));
                 }else{
                     $this->get('session')->getFlashBag()->add('error', 'El Usuario que intenta crear ya está registrado, si no recuerda su contraseña vaya al login y haga click en recuperar contraseña');
@@ -96,7 +101,7 @@ class DefaultController extends Controller
     }
     
    
-    private function sendmail($usuarios){
+    private function sendmail($usuarios, $activationLinkId){
         $message = \Swift_Message::newInstance()
         ->setSubject('Bienvenido a Eibertek!')
         ->setFrom('altas@eibertek.com')
@@ -104,7 +109,7 @@ class DefaultController extends Controller
         ->setBody(
               $this->renderView(
                 'EtkUsuariosBundle:messages:AltaEmail.html.twig',
-                array('usuario' => $usuarios)
+                array('usuario' => $usuarios, 'link' => $activationLinkId)
             ),
             'text/html'
         );
@@ -123,9 +128,40 @@ class DefaultController extends Controller
     
     public function activarAction()
     {
-        // The security layer will intercept this request
-       $this->get('session')->getFlashBag()->add('notice', 'Usuario Activado con exito');
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery('
+            SELECT u.username, u.nombre, u.id as userId,  u.apellido, u.status , a.expireDate, a.id as alinkId 
+            FROM EtkUsuariosBundle:Usuarios u
+            inner join EtkUsuariosBundle:Activationlink a
+            with u.id = a.userId 
+            WHERE a.id = :id
+        ');
+
+        $query->setParameter('id', $_GET['id']);
+        $dataquery = $query->getResult();
+        if (count($dataquery)==0){
+               $this->get('session')->getFlashBag()->add('notice', 'El link no es valido');            
+               return $this->redirectToRoute('etk_usuarios_homepage');
+        }
+        $datetime1 = $dataquery[0]['expireDate'];
+        $datetime2 = new \DateTime();
+        $interval = $datetime2->diff($datetime1);
+        if ($datetime1 >= $datetime2 &&  $dataquery[0]['status'] === UsuarioEntity::NOT_VALIDATED){
+            //Se activa al usuario
+            $usuario = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Usuarios')->find($dataquery[0]['userId']); 
+            $link = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Activationlink')->find($dataquery[0]['alinkId']); 
+            $usuario->setStatus(UsuarioEntity::ACTIVE);
+            $em->remove($link);
+            $em->persist($usuario);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('notice', 'Usuario Activado con exito');
+        }else{
+            $this->get('session')->getFlashBag()->add('notice', 'El link ha caducado');            
+        }
+      //  return $this->render('EtkUsuariosBundle:Default:activar.html.twig', array(  'data' => $dataquery[0])); 
        return $this->redirectToRoute('etk_usuarios_homepage');
     }
+    
     
 }

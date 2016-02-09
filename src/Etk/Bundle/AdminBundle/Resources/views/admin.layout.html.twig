@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="etkApp">
 
 <head>
     {% block meta_content_header %}
@@ -12,16 +12,18 @@
 
     {% block stylesheets %}
         <link href="{{ asset('bundles/etknoticias/css/bootstrap.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('bundles/etknoticias/css/bootstrap-responsive.css') }}" type="text/css" rel="stylesheet">
+        <!-- link href="{{ asset('bundles/etknoticias/css/bootstrap-responsive.css') }}" type="text/css" rel="stylesheet" -->
         <link href="{{ asset('bundles/etknoticias/css/jquery-ui.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/etknoticias/css/logo-nav.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/etknoticias/css/administrator.css') }}" rel="stylesheet">        
     {% endblock %}
 
     {% block title %}
-    <title>Logo Nav - Start Bootstrap Template</title>
+    <title>Administracion de Web</title>
     {% endblock %}
     <!-- Custom CSS -->
-
+    {% block angularFn %}
+    {% endblock %}
 </head>
 <br/>
 <br/>
@@ -70,15 +72,7 @@
 {% endblock %}
 <!-- /.container -->
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery-ui.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/bootstrap.js') }}"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 {% endblock %}
 
 </html>

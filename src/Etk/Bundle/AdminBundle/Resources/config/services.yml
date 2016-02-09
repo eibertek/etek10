@@ -1,4 +1,5 @@
 services:
-#    etk_admin.example:
-#        class: Etk\Bundle\AdminBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    etk_admin.usuarios:
+        class: Etk\Bundle\AdminBundle\Service\Usuarios
+        arguments: [ @doctrine.orm.entity_manager ]
+     #   arguments: [@service_id, "plain_value", %parameter%]

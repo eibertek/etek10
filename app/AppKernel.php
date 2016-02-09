@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Etk\Bundle\UsuariosBundle\EtkUsuariosBundle(),
             new Etk\Bundle\AdminBundle\EtkAdminBundle(),
             new Etk\Bundle\SFPBundle\EtkSFPBundle(),
+            new Etk\ApiBundle\EtkApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

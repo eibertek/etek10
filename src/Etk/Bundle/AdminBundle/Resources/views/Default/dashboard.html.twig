@@ -1,0 +1,51 @@
+
+{% extends "EtkAdminBundle::admin.layout.html.twig" %}
+{% block angularFn %}
+    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/bootstrap.js') }}"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script>
+        angular.module('etkApp', []).config(function($interpolateProvider){
+            $interpolateProvider.startSymbol('[[').endSymbol(']]');
+        });       
+    </script>    
+    <script>
+        function getUsers($scope, $http) {
+        angular.element('.moduleBox.users').hide();
+        $http.get('{{ app.request.getBaseURL() }}/api/listUsers',
+            {headers: {'Authorization': '481f96a38a01eaf230eb8cb60ed868fd0c08f9a1ed514101283f20b8d4fc6ad0'}}).
+                success(function(data) {
+                    angular.element('.moduleBox.users').show();
+                    $scope.listUsers = data;
+                });
+        }
+   </script>        
+{% endblock %} 
+{% block content %}
+    <div>
+        <!-- Modulo Usuarios -->
+        <div class="moduleBox users" ng-controller="getUsers">
+             <div ng-repeat="user in listUsers"> 
+                 [[user.nombre]] | [[ user.apellido]]
+             </div>
+        </div>
+        <!-- Modulo Noticias -->
+        <div class="moduleBox noticias">
+
+        </div>
+        <!-- Modulo Registros -->
+        <div class="moduleBox registros">
+            {% for user in data %}
+                <li> {{ user.username }} </li>
+            {% endfor %}                
+        </div>
+        
+    </div>
+    
+{% endblock %}
+   
+{% block javascript %}
+   {{ parent() }}
+
+{% endblock %}

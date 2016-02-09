@@ -15,11 +15,31 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
+    
+    private $api_Key;
+
+
     public function indexAction()
     {
-        return $this->render('EtkAdminBundle:Default:index.html.twig');
+        $users = $this->get('etk_admin.usuarios')->getList();
+        $users = $this->get('etk_admin.usuarios')->serialize($users);
+        $data = json_decode($users,true);
+        return $this->render('EtkAdminBundle:Default:dashboard.html.twig',Array('data'=>$data));
     }
 
+    
+    public function preExecute()
+    {
+        $api_key = $this->container->getParameter( 'etk_api' )['api_key'];
+        $this->api_Key = $this->get('sha256salted_encoder')->encodePassword($api_key, '45826189');
+
+    }
+    
+    public function getApiKey()
+    {
+        return $this->api_Key;
+    }
+    
     public function usersAction($name='admin')
     {
         $repository = $this->getDoctrine()

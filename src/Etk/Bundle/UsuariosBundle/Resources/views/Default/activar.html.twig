@@ -1,0 +1,16 @@
+{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+
+{% block navbar %}
+    {{ parent() }}
+    <br/>
+{% endblock %}    
+{% block content %}
+    {{ parent() }}
+    {{ dump(data) }}
+   {% for flashMessage in app.session.flashbag.get('notice') %}
+       <span style="color:green; font-weight: 400"> {{ flashMessage }} </span><br/>
+   {% endfor %}     
+    <div class="etk_header_1 ">Datos Usuario:</div>
+    {{ data.username }} {{ data.nombre }} {{ data.apellido }}
+{% endblock %}
+
