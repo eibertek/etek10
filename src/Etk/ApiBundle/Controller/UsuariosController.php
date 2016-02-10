@@ -14,13 +14,14 @@ class UsuariosController extends DefaultController
         if($search==null){
             return $this->error(self::INVALID_ID);
         }
-        $result = Array(
+      /*  $result = Array(
                     "nombre" =>$search->getNombre(),
                     "apellido" =>$search->getApellido(),
                     "id" =>$search->getId(),
                     "status" =>$search->getStatus(),
                         );
-        return $this->returnJson($result);
+       */
+        return $this->returnJson($search);
 //        return $this->render('EtkApiBundle:Default:index.html.twig');
 //         throw new BadRequestHttpException("You must pass username and password fields");
     }
@@ -31,7 +32,7 @@ class UsuariosController extends DefaultController
         if($search==null){
             return $this->error(self::INVALID_SEARCH);
         }
-        foreach ( $search as $usuarios)
+      /*  foreach ( $search as $usuarios)
         {
             $result[] = Array(
                 "nombre" =>$usuarios->getNombre(),
@@ -40,9 +41,11 @@ class UsuariosController extends DefaultController
                 "status" =>$usuarios->getStatus(),
                     );        
         }
-        return $this->returnJson($result);
+       */
+        return $this->returnJson($search);
 //        return $this->render('EtkApiBundle:Default:index.html.twig');
 //         throw new BadRequestHttpException("You must pass username and password fields");
     }    
 
+   
 }

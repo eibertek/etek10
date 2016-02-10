@@ -1,0 +1,21 @@
+{# empty Twig template #}
+{% block angularFn %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script>
+        angular.module('etkApp', []).config(function($interpolateProvider){
+            $interpolateProvider.startSymbol('[[').endSymbol(']]');
+        });       
+    </script>    
+    <script>
+        function getUsers($scope, $http) {
+        angular.element('.moduleBox.users').hide();
+        $http.get('{{ app.request.getBaseURL() }}/api/listUsers',
+            {headers: {'Authorization': '{{api_key}}'}}).
+                success(function(data) {
+                    console.log(data);
+                    angular.element('.moduleBox.users').show();
+                    $scope.listUsers = data;
+                });
+        }
+   </script>        
+{% endblock %} 

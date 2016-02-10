@@ -18,16 +18,6 @@ class DefaultController extends Controller
     
     private $api_Key;
 
-
-    public function indexAction()
-    {
-        $users = $this->get('etk_admin.usuarios')->getList();
-        $users = $this->get('etk_admin.usuarios')->serialize($users);
-        $data = json_decode($users,true);
-        return $this->render('EtkAdminBundle:Default:dashboard.html.twig',Array('data'=>$data));
-    }
-
-    
     public function preExecute()
     {
         $api_key = $this->container->getParameter( 'etk_api' )['api_key'];
@@ -39,6 +29,52 @@ class DefaultController extends Controller
     {
         return $this->api_Key;
     }
+    
+    public function indexAction()
+    {
+        $users = $this->get('etk_admin.usuarios')->getList();
+        $noticias = $this->get('etk_admin.noticias')->getList();
+        
+        $users = $this->get('etk_admin.usuarios')->serialize($users);
+        $noticias = $this->get('etk_admin.noticias')->serialize($noticias);
+        $userData = json_decode($users,true);
+        $noticiasData = json_decode($noticias,true);
+        return $this->render(
+                        'EtkAdminBundle:Default:dashboard.html.twig',
+                        Array(
+                            'userData'=>$userData, 
+                            'noticiasData'=>$noticiasData, 
+                            'api_key'=>$this->getApiKey()
+                            )
+                );
+    }
+
+    public function getFormAction($form, $type,$id="")
+    {
+        $em = $this->getDoctrine()->getManager();
+        if($form=='users'){
+            if($type==='edit' && $id!==''){
+                $usuarios = $em->find('EtkUsuariosBundle:Usuarios',$id);
+            }else{
+                $usuarios = new Usuarios();
+            }
+            $form2 = $this->createForm(new UsuariosType(), 
+                                      $usuarios, 
+                                      Array('action'=>'','method'=>'POST')
+                                      );        
+        }
+        if($form=='noticias'){
+            $noticias = new Noticias();
+            $form2 = $this->createForm(new NoticiasType(), 
+                                      $noticias, 
+                                      Array('action'=>'','method'=>'POST')
+                                      );        
+        }        
+        return $this->render('EtkAdminBundle:'.$form.':form_'.$type.'.html.twig', 
+                             array(  'form' => $form2->createView(),));
+    }
+    
+    
     
     public function usersAction($name='admin')
     {

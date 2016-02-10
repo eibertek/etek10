@@ -4,6 +4,10 @@ namespace Etk\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DefaultController extends Controller
 {
@@ -45,9 +49,17 @@ class DefaultController extends Controller
     
     protected function returnJson(Array $result)
     {
-        $response = new Response(json_encode($result));
+        $response = new Response($this->serialize($result));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }    
-    
+
+    public function serialize($data, $format='json'){
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+
+        return $serializer->serialize($data, $format);
+
+    }     
 }

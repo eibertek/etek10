@@ -25,10 +25,6 @@
     {% block angularFn %}
     {% endblock %}
 </head>
-<br/>
-<br/>
-<br/>
-<br/>
 {% block body %}
         {% block navbar %}
         <!-- Navigation -->
@@ -72,7 +68,9 @@
 {% endblock %}
 <!-- /.container -->
 {% block javascripts %}
-
+    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/bootstrap.js') }}"></script>
 {% endblock %}
 
 </html>

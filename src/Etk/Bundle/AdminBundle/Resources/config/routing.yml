@@ -35,3 +35,12 @@ etk_admin_borrarNoticia:
     path:     /borrar/noticia/
     defaults: { _controller: EtkAdminBundle:Default:borrarNoticia }
     methods: [POST]
+    
+etk_admin_getForm:
+    path:     /getForm/{form}/{type}
+    defaults: { _controller: EtkAdminBundle:Default:getForm }
+    
+etk_admin_getForm_id:
+    path:     /getForm/{form}/{type}/{id}
+    defaults: { _controller: EtkAdminBundle:Default:getForm }    
+    

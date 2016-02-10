@@ -1,51 +1,67 @@
 
 {% extends "EtkAdminBundle::admin.layout.html.twig" %}
-{% block angularFn %}
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery-ui.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/bootstrap.js') }}"></script>    
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    <script>
-        angular.module('etkApp', []).config(function($interpolateProvider){
-            $interpolateProvider.startSymbol('[[').endSymbol(']]');
-        });       
-    </script>    
-    <script>
-        function getUsers($scope, $http) {
-        angular.element('.moduleBox.users').hide();
-        $http.get('{{ app.request.getBaseURL() }}/api/listUsers',
-            {headers: {'Authorization': '481f96a38a01eaf230eb8cb60ed868fd0c08f9a1ed514101283f20b8d4fc6ad0'}}).
-                success(function(data) {
-                    angular.element('.moduleBox.users').show();
-                    $scope.listUsers = data;
-                });
-        }
-   </script>        
-{% endblock %} 
+
 {% block content %}
     <div>
         <!-- Modulo Usuarios -->
-        <div class="moduleBox users" ng-controller="getUsers">
-             <div ng-repeat="user in listUsers"> 
-                 [[user.nombre]] | [[ user.apellido]]
-             </div>
+        <div class="panel panel-primary moduleBox users" >
+            <div class="btn glyphicon glyphicon-plus btnadd users"></div>
+            <div class="panel-title ">Usuarios</div>
+            <div class="panel-body">
+            <table class="table table-striped">
+            {% for user in userData %}
+                <tr>
+                <td class="user {{ user.status }}" >{{ user.username | upper }}</td>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.apellido }}</td>
+                <td><div class="edit user btn glyphicon glyphicon-pencil" id="edit_{{ user.id}}"> </div></td>    
+                </tr>
+            {% endfor %}           
+            </table>
+            </div>
         </div>
         <!-- Modulo Noticias -->
-        <div class="moduleBox noticias">
-
+        <div class="panel panel-primary moduleBox noticias">
+            <div class="btn glyphicon glyphicon-plus btnadd noticias"></div>
+            <div class="panel-title ">Noticias</div>
+            <div class="panel-body">
+                {% if not noticiasData %} No hay noticias {% endif %}
+                {% for noticias in noticiasData %}
+                    <li> {{ noticias.nombre }} | {{ noticias.fecha.timestamp | date("d/m/Y") }}</li>
+                {% endfor %}                
+            </div>
         </div>
         <!-- Modulo Registros -->
-        <div class="moduleBox registros">
-            {% for user in data %}
-                <li> {{ user.username }} </li>
-            {% endfor %}                
+        <div class="panel panel-primary moduleBox registros">
         </div>
         
     </div>
     
+    <div id="myModal" class="modal">
+        <!-- register form here -->
+        Loading
+    </div>                
+                
 {% endblock %}
    
-{% block javascript %}
+{% block javascripts %}
    {{ parent() }}
+   <script>
+       $('.edit.user').click(function(){
+           form = 'users';
+           type= 'edit';
+           console.log(this.id.substr(5));
+           id= this.id.substr(5);
+            $.ajax('{{ app.request.getBaseURL() }}/admin/getForm/'+form+'/'+type+'/'+id).done( function(data){
+                $('#myModal').html(data); 
+//                $('#myModal form').find('button[type=\'submit\']').attr('id','btn_process_form');
+                $('#myModal').dialog();          
+                $('#myModal form').submit(function(e){
+                    e.preventDefault();
+                   // Aqui va a ir al controlador a ejecutar el proceso del form
+                });
+            });
+       });
 
+   </script>
 {% endblock %}
