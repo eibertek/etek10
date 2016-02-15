@@ -2,38 +2,99 @@ Nuevo usuario: <br />
     <div class="container-fluid">
             {{ form_start(form) }}
             {{ form_errors(form) }}
-        <div class="form-group">
-            {{ form_label(form.nombre) }}
-            {{ form_errors(form.nombre) }}
-            {{ form_widget(form.nombre, { 'attr': {'class': 'form-control'} }) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.apellido) }}
-            {{ form_errors(form.apellido) }}
-            {{ form_widget(form.apellido, { 'attr': {'class': 'form-control'} }) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.email) }}
-            {{ form_errors(form.email) }}
-            {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.username) }}
-            {{ form_errors(form.username) }}
-            {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.plainPassword.first) }}
-            {{ form_errors(form.plainPassword.first) }}
-            {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.plainPassword.second) }}
-            {{ form_errors(form.plainPassword.second) }}
-            {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
-        </div> 
+        <div class="col-md-4">     
+            <div class="form-group">
+                {{ form_label(form.nombre) }}
+                {{ form_errors(form.nombre) }}
+                {{ form_widget(form.nombre, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.apellido) }}
+                {{ form_errors(form.apellido) }}
+                {{ form_widget(form.apellido, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email) }}
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.username) }}
+                {{ form_errors(form.username) }}
+                {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+            </div>
         <div>
-            {{ form_widget(form.Guardar, { 'attr': {'id':'btn_process_form', 'class': 'btn btn-default'} }) }}
+            <button type="submit" class="btn btn-default" id="btn_submit_form">Guardar</button>
+            <button type="button" class="btn btn-default" id="btn_cancel_form">Cancelar</button>
+        </div>            
         </div>
-        {{ form_end(form) }}
-    </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                {{ form_label(form.plainPassword.first) }}
+                {{ form_errors(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.plainPassword.second) }}
+                {{ form_errors(form.plainPassword.second) }}
+                {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
+            </div>  
+           <!--     <div class="space-all-10"><input type="checkbox" name="Activate" class="input checkbox" id="Activate"> Activar User </input> </div> -->
+                {{ form_label(form.activate) }}
+        </div>    
+        {{ form_widget(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+     </div>
+
+     <script>
+                $('#btn_cancel_form').click(function(){
+                    $('#myModal').dialog('close');
+                });
+        
+                submitForm = function(data){
+                    console.log(data);
+                        $.ajax({
+                            url : '{{ app.request.getBaseURL() }}/admin/users/new',
+                            method : 'POST',
+                            data : data.serialize(),
+                        }).done(function(data) {
+                            console.log(data);
+                                // Code in case of success
+                        })                
+                };
+                
+                $('#myModal form').submit(function(e){
+                    e.preventDefault();
+                   // Aqui va a ir al controlador a ejecutar el proceso del form
+                        submitForm($(this));
+                   
+                });
+    /*             
+                $.ajax({
+                    url : '{{ app.request.getBaseURL() }}/admin/users/new',
+                    method : 'POST',
+                    data : $(this).serialize(),
+                }).done(function(data) {
+                        // Code in case of success
+                }).fail(function(jqXHR) {
+
+                   $.each(jqXHR.responseJSON.errors.children, function(k, v) {
+
+                       errorsText = "";
+
+                       if ((v.errors) && (v.errors.length > 0)) {
+                           $.each(v.errors, function(n, errorText) {
+                               errorsText += errorText;
+                           });
+                           $('#form_'+k).tooltip('destroy');
+                           $('#form_'+k).tooltip({'title': errorsText});    
+                           $('#form_'+k).closest('div[class="form-group"]').addClass('has-error');
+                        } else {
+                           $('#form_'+k).closest('div[class="form-group has-error"]').removeClass('has-error');
+                           $('#form_'+k).tooltip('destroy');
+                      }
+
+                   });
+                }                
+     */           
+     </script>     

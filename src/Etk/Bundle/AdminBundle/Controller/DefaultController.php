@@ -51,6 +51,7 @@ class DefaultController extends Controller
 
     public function getFormAction($form, $type,$id="")
     {
+      //  var_dump($form); die();
         $em = $this->getDoctrine()->getManager();
         if($form=='users'){
             if($type==='edit' && $id!==''){
@@ -62,6 +63,7 @@ class DefaultController extends Controller
                                       $usuarios, 
                                       Array('action'=>'','method'=>'POST')
                                       );        
+            $dataInfo = $usuarios;
         }
         if($form=='noticias'){
             $noticias = new Noticias();
@@ -69,9 +71,10 @@ class DefaultController extends Controller
                                       $noticias, 
                                       Array('action'=>'','method'=>'POST')
                                       );        
+            $dataInfo = $noticias;
         }        
         return $this->render('EtkAdminBundle:'.$form.':form_'.$type.'.html.twig', 
-                             array(  'form' => $form2->createView(),));
+                             array(  'form' => $form2->createView(),'data' => $dataInfo ));
     }
     
     
@@ -98,12 +101,13 @@ class DefaultController extends Controller
     {
 
         $usuarios = new Usuarios();
-        $form = $this->createForm(new UsuariosType(), $usuarios, Array('action'=>'','method'=>'POST')
-                                  );
+        $form = $this->createForm(new UsuariosType(), $usuarios, Array('action'=>'','method'=>'POST'));
 
         $form->handleRequest($request);
         if ($request->isMethod('POST')) {
             if ($form->isValid()) {
+                var_dump($request); die();
+                
                 // guardar la tarea en la base de datos
                 $usuarios = $form->getData();
                 $factory = $this->get('security.encoder_factory');
@@ -112,16 +116,17 @@ class DefaultController extends Controller
                 $usuarios->setPassword($pasword);
                 $usuarios->setCreateddate(new \DateTime("now"));
                 $usuarios->setRole('ROLE_USER');
+                $usuarios->setStatus(UsuarioEntity::NOT_VALIDATED);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($usuarios);
                 $em->flush();
                 return $this->render('EtkAdminBundle:default:success.html.twig', array(  'msg' => 'Se ha creado el usuario con exito', 'path' => 'etk_admin_users'));
             }else{
-                return $this->render('EtkAdminBundle:users:newUser.html.twig', array(  'form' => $form->createView(),));
+//                var_dump($form->getErrorsAsString());
+                return $this->render('EtkAdminBundle:default:success.html.twig', array(  'msg' => $form->getErrorsAsString(), 'path' => 'etk_admin_users'));
             }
-
         }else{
-            return $this->render('EtkAdminBundle:users:newUser.html.twig', array(  'form' => $form->createView(),));
+                return $this->render('EtkAdminBundle:default:success.html.twig', array(  'msg' => 'Errores', 'path' => 'etk_admin_users'));
         }
     }
 

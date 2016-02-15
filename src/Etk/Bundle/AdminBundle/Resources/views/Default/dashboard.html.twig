@@ -34,14 +34,11 @@
         <!-- Modulo Registros -->
         <div class="panel panel-primary moduleBox registros">
         </div>
-        
-    </div>
-    
-    <div id="myModal" class="modal">
+        <div id="myModal" class="modal">
         <!-- register form here -->
-        Loading
-    </div>                
-                
+        Loading...
+        </div>  
+    </div>
 {% endblock %}
    
 {% block javascripts %}
@@ -53,15 +50,26 @@
            console.log(this.id.substr(5));
            id= this.id.substr(5);
             $.ajax('{{ app.request.getBaseURL() }}/admin/getForm/'+form+'/'+type+'/'+id).done( function(data){
-                $('#myModal').html(data); 
-//                $('#myModal form').find('button[type=\'submit\']').attr('id','btn_process_form');
-                $('#myModal').dialog();          
+                $('#myModal').dialog({ width:'80%', modal: true,}).prev(".ui-dialog-titlebar").css("background","green");   
+                $('#myModal').html(data);                 
                 $('#myModal form').submit(function(e){
                     e.preventDefault();
                    // Aqui va a ir al controlador a ejecutar el proceso del form
                 });
             });
        });
-
+// btnadd users
+       $('.btnadd.users').click(function(){
+           form = 'users';
+           type= 'new';
+            $.ajax('{{ app.request.getBaseURL() }}/admin/getForm/'+form+'/'+type).done( function(data){
+              $('#myModal').dialog({ width:'80%', modal: true,}).prev(".ui-dialog-titlebar").css("background","green");   
+                $('#myModal').html(data);                 
+                $('#myModal form').submit(function(e){
+                    e.preventDefault();
+                   // Aqui va a ir al controlador a ejecutar el proceso del form
+                });
+            });
+       });
    </script>
 {% endblock %}

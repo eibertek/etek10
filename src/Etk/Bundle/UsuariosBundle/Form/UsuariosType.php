@@ -25,8 +25,13 @@ class UsuariosType extends AbstractType
                 'type' => 'password',
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
-            ))       
-            ->add('Guardar','submit')
+            ))
+            ->add('activate', 'checkbox', array(
+                'label'    => 'Show this entry publicly?',
+                'required' => false,
+                'mapped'=>false
+            ))
+           ->add('Guardar','submit')
             ->getForm()
         ;
     }

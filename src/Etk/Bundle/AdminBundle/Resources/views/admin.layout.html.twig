@@ -11,11 +11,11 @@
     {% endblock %}
 
     {% block stylesheets %}
-        <link href="{{ asset('bundles/etknoticias/css/bootstrap.css') }}" type="text/css" rel="stylesheet">
-        <!-- link href="{{ asset('bundles/etknoticias/css/bootstrap-responsive.css') }}" type="text/css" rel="stylesheet" -->
-        <link href="{{ asset('bundles/etknoticias/css/jquery-ui.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/etknoticias/css/logo-nav.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/etknoticias/css/administrator.css') }}" rel="stylesheet">        
+        <link href="{{ asset('bundles/etkadmin/css/jquery-ui.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/etkadmin/css/bootstrap.css') }}" type="text/css" rel="stylesheet">
+        <!-- link href="{{ asset('bundles/etkadmin/css/bootstrap-responsive.css') }}" type="text/css" rel="stylesheet" -->
+        <link href="{{ asset('bundles/etkadmin/css/logo-nav.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/etkadmin/css/administrator.css') }}" rel="stylesheet">        
     {% endblock %}
 
     {% block title %}
@@ -39,7 +39,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="{{ path('etk_admin_users') }}">
-                        <img src="{{ asset('bundles/etknoticias/images/logo.png') }}"  height="60px" alt="">
+                        <img src="{{ asset('bundles/etkadmin/images/logo.png') }}"  height="60px" alt="">
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,9 +68,9 @@
 {% endblock %}
 <!-- /.container -->
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery-ui.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etkadmin/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etkadmin/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/etkadmin/js/jquery-ui.js') }}"></script>
 {% endblock %}
 
 </html>
