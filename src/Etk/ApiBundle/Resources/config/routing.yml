@@ -5,3 +5,15 @@ etk_api_homepage:
 etk_api_getUsers:
     path:     /listUsers
     defaults: { _controller: EtkApiBundle:Usuarios:getUsers }
+
+etk_api_delete_user:
+    path:     /deleteUser/{id}
+    defaults: { _controller: EtkApiBundle:Usuarios:deleteUser }
+
+etk_api_ban_user:
+    path:     /banUser/{id}
+    defaults: { _controller: EtkApiBundle:Usuarios:banUser }
+
+etk_api_activate_user:
+    path:     /activateUser/{id}
+    defaults: { _controller: EtkApiBundle:Usuarios:activateUser }    

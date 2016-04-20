@@ -23,8 +23,9 @@ class DefaultController extends Controller
     }
     
     public function preExecute() {
-            if ( ! $this->validateApi_key() ) return $this->error(self::INVALID_APIKEY);    
-            
+        if ( ! $this->validateApi_key() ) {
+            return $this->error(self::INVALID_APIKEY);   
+        }            
     }    
     
     protected function validateApi_key()
@@ -34,8 +35,11 @@ class DefaultController extends Controller
         $apikey = getallheaders()['Authorization'];
         $api_key = $this->container->getParameter( 'etk_api' )['api_key'];
         $expression = $this->get('sha256salted_encoder')->encodePassword($api_key, '45826189');
-        if($expression === $apikey) return true;
-        return false;
+        if ($expression === $apikey) {
+            return true; 
+        } else {
+            return false;
+        }
     }
     
     protected function error($error)

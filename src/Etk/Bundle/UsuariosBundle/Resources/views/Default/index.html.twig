@@ -1,4 +1,4 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 {% block navbar %}
     {{ parent() }}
@@ -6,16 +6,17 @@
 {% endblock %}    
 {% block content %}
     {{ parent() }}
+   <div class="etk_content">
    {% for flashMessage in app.session.flashbag.get('notice') %}
-       <span style="color:green; font-weight: 400"> {{ flashMessage }} </span><br/>
-   {% endfor %}     
-    <div class="etk_header_1 ">Datos Usuario:</div>
-    <div>
+       <span class="alert-success"> {{ flashMessage }} </span><br/>
+   {% endfor %}        
+   <div class="etk_header_1 ">Datos Usuario:</div>
         <div>Usuario: {{ app.user.username }} </div>
         <div>Nombre:{{ app.user.Nombre }}</div>
         <div>Apellido: {{ app.user.Apellido }}</div>
         <div>Email: {{ app.user.Email }}</div>
-        
+        <a class="pager" href="{{ path('etk_usuarios_nuevapassword') }}" >Cambiar Contraseña </a>
     </div>
+        
 {% endblock %}
 

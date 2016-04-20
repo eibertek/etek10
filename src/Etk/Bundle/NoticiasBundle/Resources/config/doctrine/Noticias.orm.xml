@@ -18,7 +18,7 @@
     <field name="modifieddate" type="datetime" column="modifiedDate" nullable="true"/>
     <many-to-one field="userid" target-entity="Etk\Bundle\UsuariosBundle\Entity\Usuarios">
       <join-columns>
-        <join-column name="userId" referenced-column-name="id"/>
+        <join-column name="userId" referenced-column-name="id" on-delete="CASCADE" />
       </join-columns>
     </many-to-one>
   </entity>

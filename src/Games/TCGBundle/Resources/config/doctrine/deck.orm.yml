@@ -1,0 +1,26 @@
+#Entidad para el objeto Deck (Mazo de cartas)
+Games\TCGBundle\Entity\deck:
+    type: entity
+    table: deck
+    id:
+        deckId:
+            type: binary
+            nullable: false
+            fixed: false
+            id: true
+    lifecycleCallbacks:
+      prePersist: [ generateId ]                
+    fields:
+        Premium:
+            type: boolean
+            nullable: true
+        Active:
+            type: boolean
+            nullable: false
+        Name:
+            type: string
+            nullable: false            
+        StringId:
+            type: string
+            nullable: false            
+                       

@@ -1,0 +1,55 @@
+#  Son Cartas Activas	GameId, UserId, PlayerId, cardId, Activo, Ataque, Defensa, Energia, Vida, Cementerio
+Games\TCGBundle\Entity\activedeck:
+    type: entity
+    table: activedeck
+    id:
+        ActiveDeckId:
+            type: binary
+            nullable: false
+            fixed: false
+            id: true
+            generator:
+                strategy: UUID
+    lifecycleCallbacks:
+      prePersist: [ generateId ]                
+    fields:
+        UserId:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        PlayerId:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        deckId:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false            
+        cardId:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+        Active:
+            type: boolean
+            nullable: false
+#	GameId, UserId, PlayerId, cardId, Activo, Ataque, Defensa, Energia, Vida, Cementerio            
+        Life:
+            type: float
+            nullable: false
+        Energy:
+            type: float
+            nullable: false
+        Defense:
+            type: float
+            nullable: false
+        Attack:
+            type: float
+            nullable: false
+        Cementery:
+            type: boolean
+            nullable: false
+            

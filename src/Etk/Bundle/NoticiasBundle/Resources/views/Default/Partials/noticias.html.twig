@@ -1,0 +1,12 @@
+{# empty Twig template #}
+{% for i in noticias %}
+<div class="row center-block">
+    <div class="col-lg-5 col-xs-12 col-md-5 noticia-boxed left vertical-middle">
+        <h2>{{ i.titulo }}</h2> 
+        <span> {{ i.fecha | date('d/m/Y') }} </span>
+        <div> {{ i.subtitulo }}</div>
+        <div> {{ i.cuerpo | raw }}</div>
+    </div>
+</div>
+{% endfor %}
+   

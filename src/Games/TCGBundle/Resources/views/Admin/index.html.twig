@@ -1,0 +1,32 @@
+{% extends 'EtkAdminBundle::admin.layout.html.twig' %}
+{% block menu %}
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{{ path('games_tcg_homepage') }}">Trading Card Game</a>
+        </li>
+        <li>
+            <a href="{{ path('etk_admin_logout') }}">Salir</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}   
+{% block content %}
+<div id="container" class="container-fluid" ng-controller="exampleController">
+Tareas para La pagina de administracion de TCG:<br />
+
+<ul class="list-group">
+    <li> 
+        Administrador
+        <ul>
+        <li class="list-group-item-danger">Crear nuevo Mazo</li>
+        <li class="list-group-item-danger">Crear nueva Carta</li>
+        <li class="list-group-item-danger">Crear Nueva regla</li>
+        <li class="list-group-item-danger">Agregar una carta a un Mazo</li>    
+        <li class="list-group-item-danger">Agregar una regla a una Carta</li>    
+        <li class="list-group-item-danger">Test AI</li>    
+        </ul>
+    </li>
+</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{# empty Twig template #}
+{% extends 'EtkAdminBundle::admin.layout.html.twig' %}
+{% block menu %}
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{{ path('games_tcg_homepage') }}">Trading Card Game</a>
+        </li>
+        <li>
+            <a href="{{ path('etk_admin_logout') }}">Salir</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}   
+{% block content %}
+<div id="container" class="container-fluid" ng-controller="exampleController">
+Modificar Mazo de cartas:
+
+</div>
+{% endblock %}

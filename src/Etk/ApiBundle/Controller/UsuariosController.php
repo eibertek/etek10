@@ -10,42 +10,70 @@ class UsuariosController extends DefaultController
 {
     public function getUserAction($id)
     {
+        if ( ! $this->validateApi_key() ) {
+            return $this->error(self::INVALID_APIKEY);   
+        }         
         $search = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Usuarios')->find($id);
         if($search==null){
             return $this->error(self::INVALID_ID);
         }
-      /*  $result = Array(
-                    "nombre" =>$search->getNombre(),
-                    "apellido" =>$search->getApellido(),
-                    "id" =>$search->getId(),
-                    "status" =>$search->getStatus(),
-                        );
-       */
+
         return $this->returnJson($search);
-//        return $this->render('EtkApiBundle:Default:index.html.twig');
-//         throw new BadRequestHttpException("You must pass username and password fields");
     }
     
    public function getUsersAction()
     {
-         $search = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Usuarios')->findAll();
+        if ( ! $this->validateApi_key() ) {
+            return $this->error(self::INVALID_APIKEY);   
+        }        
+        $search = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Usuarios')->findAll();
         if($search==null){
             return $this->error(self::INVALID_SEARCH);
         }
-      /*  foreach ( $search as $usuarios)
-        {
-            $result[] = Array(
-                "nombre" =>$usuarios->getNombre(),
-                "apellido" =>$usuarios->getApellido(),
-                "id" =>$usuarios->getId(),
-                "status" =>$usuarios->getStatus(),
-                    );        
-        }
-       */
+
         return $this->returnJson($search);
-//        return $this->render('EtkApiBundle:Default:index.html.twig');
-//         throw new BadRequestHttpException("You must pass username and password fields");
+
     }    
 
+    public function deleteUserAction($id)
+    {
+        if ( ! $this->validateApi_key() ) {
+            return $this->error(self::INVALID_APIKEY);   
+        }         
+        $search = $this->get('etk_admin.usuarios')->getUserAsArray($id);
+        if($search==null){
+            return $this->error(self::INVALID_ID);
+        }
+        $status = $this->get('etk_admin.usuarios')->deleteUser($id);
+        $response = Array('action'=>'delete', 'id'=>$id, 'status'=>$status);
+        return $this->returnJson($response);
+    } 
+
+    public function activateUserAction($id)
+    {
+        if ( ! $this->validateApi_key() ) {
+            return $this->error(self::INVALID_APIKEY);   
+        }         
+        $search = $this->get('etk_admin.usuarios')->getUserAsArray($id);
+        if($search==null){
+            return $this->error(self::INVALID_ID);
+        }
+        $status = $this->get('etk_admin.usuarios')->activateUser($id);
+        $response = Array('action'=>'activate', 'id'=>$id, 'status'=>$status);
+        return $this->returnJson($response);
+    } 
+    
+    public function banUserAction($id)
+    {
+        if ( ! $this->validateApi_key() ) {
+            return $this->error(self::INVALID_APIKEY);   
+        }         
+        $search = $this->getDoctrine()->getRepository('EtkUsuariosBundle:Usuarios')->find($id);
+        if($search==null){
+            return $this->error(self::INVALID_ID);
+        }
    
+        return $this->returnJson($search);
+
+    }    
 }

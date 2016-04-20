@@ -1,6 +1,7 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 {% block content %}
+    <div class="etk_content">
     {% for flashMessage in app.session.flashbag.get('registro') %}
         <p>{{ flashMessage }}</p>
     {% endfor %}    
@@ -38,7 +39,9 @@
         </tfoot>
             </table>
     </div>    
-    <a href="{{path('alta')}}">Nuevo Registro</a>        
+        <div class="btn-lg"><a href="{{path('alta')}}">Nuevo Registro</a> </div> 
+        <div class="btn-sm"><a href="{{path('monedaListar')}}">Monedas</a>   </div>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

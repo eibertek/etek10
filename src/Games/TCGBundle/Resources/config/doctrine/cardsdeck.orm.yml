@@ -1,0 +1,28 @@
+#Entidad para el objeto relacion cards y deck
+Games\TCGBundle\Entity\cardsdeck:
+    type: entity
+    table: cardsdeck
+    id:
+        cdId:
+            type: binary
+            nullable: false
+            fixed: false
+            id: true
+            generator:
+                strategy: UUID
+    lifecycleCallbacks:
+      prePersist: [ generateId ]                
+    fields:
+        DeckId:
+            type: string
+            nullable: true        
+        CardId:
+            type: string
+            nullable: true        
+        Premium:
+            type: boolean
+            nullable: true
+        Active:
+            type: boolean
+            nullable: false
+            

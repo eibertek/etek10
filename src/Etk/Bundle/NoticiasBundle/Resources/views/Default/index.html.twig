@@ -1,29 +1,24 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
-
-{% block title %}
-  {# Bienvenido a la Pagina de {{ app.environment }} #}
-{% endblock %}
-
-{% block content %}
-    {{ parent() }}
-    <div class="etk_header_1" >Aplicaciones Web</div>
-    <br />
-    <div>
-        Bienvenido a la pagina de Eibertek. -- En construcción --
-     
-    </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        angular.module('myApp', []).config(function($interpolateProvider){
-            $interpolateProvider.startSymbol('<%').endSymbol('%>');
-        });       
-        $.datepicker.formatDate("yy-mm-dd");
-        $( "#datepicker" ).datepicker({
-            inline: true
+<html>
+<head>
+<title>My test editor - with tinyMCE and PHP</title>
+<!-- "{{ asset('bundles/etknoticias/js/tinymce/tinymce.js') }}" C:\web\etek10\web\bundles\etknoticias\js\tinymce -->
+<script language="javascript" type="text/javascript" src="{{ asset('bundles/etknoticias/tinymce/tinymce.min.js') }}"></script>
+<script language="javascript" type="text/javascript">
+        tinymce.init({
+            selector: "#mytextarea"
         });
-    </script>
-{% endblock %}
 
+</script>
+</head>
+<body>
+ {{ sHeader }}
+ <h2>Sample using TinyMCE and PHP</h2>
+ <form method="post" action="">
+  <textarea id="mytextarea" name="mytextarea" rows="15" cols="80">{{ sContent }}</textarea>
+<br />
+<input type="submit" name="save" value="Submit" />
+<input type="reset" name="reset" value="Reset" />
+</form>
+<div> {{sContent | raw }}</div>
+</body>
+</html>

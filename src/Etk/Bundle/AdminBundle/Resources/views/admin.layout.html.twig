@@ -25,6 +25,7 @@
     {% block angularFn %}
     {% endblock %}
 </head>
+<body>
 {% block body %}
         {% block navbar %}
         <!-- Navigation -->
@@ -43,6 +44,7 @@
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
+                {% block menu %}
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
@@ -56,6 +58,7 @@
                         </li>
                     </ul>
                 </div>
+                {% endblock %}        
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container -->
@@ -66,6 +69,7 @@
 
         {% endblock %}
 {% endblock %}
+</body>
 <!-- /.container -->
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/etkadmin/js/bootstrap.js') }}"></script>

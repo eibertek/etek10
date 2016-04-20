@@ -1,11 +1,10 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 {% block content %}
-<div class="jumbotron">
+<div class="etk_header_1">
   <h1>Nuevo Registro</h1> 
-  <p>Por favor revise los datos</p> 
 </div>
-<div class="container">
+<div class="etk_content">
   <div class="container-fluid">
             {{ form_start(formAlta) }}
             {{ form_errors(formAlta) }}
@@ -38,6 +37,7 @@
             {{ form_widget(formAlta.Guardar, { 'attr': {'class': 'btn btn-default'} }) }}
         </div>
         {{ form_end(formAlta) }}
+            <div style="margin-bottom: 50px;"> </div>
     </div> 
 </div>
 {% endblock %}

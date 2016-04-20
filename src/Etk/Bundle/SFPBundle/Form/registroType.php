@@ -22,11 +22,12 @@ class registroType extends AbstractType
             ->add('sfpFecha', 'text' , array('label' => 'Fecha:', 'attr' => ['id'=>'spfFecha']))
 //            ->add('sfpCuenta', 'text', array('label' => 'Cuenta:','required' => false))
             ->add('sfpTipo', 'choice', array(
+                'label' => 'Ingreso / Egreso ',
                 'choices'  => array('+' => '+', '-' => '-'),
                 'empty_data'  => '+'
             ))               
             ->add('sfpMonto', 'number', array('label' => 'Monto:'))
-            ->add('sfpMoneda', 'moneda_selector')
+            ->add('sfpMoneda', 'moneda_selector', array('label' => 'Moneda:'))
             ->add('sfpDescripcion', 'text', array('label' => 'Descripcion:','required' => false))
             ->add('uniqueToken', 'hidden', array('data' => uniqid('form_')))    
             ->add('Guardar','submit')                

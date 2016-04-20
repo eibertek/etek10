@@ -1,3 +1,6 @@
+   {% for flashMessage in app.session.flashbag.get('error') %}
+       <span style="color:red; font-weight: 400"> {{ flashMessage }} </span><br/>
+   {% endfor %} 
 Nuevo usuario: <br />
     <div class="container-fluid">
             {{ form_start(form) }}
@@ -39,8 +42,11 @@ Nuevo usuario: <br />
                 {{ form_errors(form.plainPassword.second) }}
                 {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
             </div>  
-           <!--     <div class="space-all-10"><input type="checkbox" name="Activate" class="input checkbox" id="Activate"> Activar User </input> </div> -->
+            <div class="form-group">
                 {{ form_label(form.activate) }}
+                {{ form_errors(form.activate) }}
+                {{ form_widget(form.activate) }}
+            </div>  
         </div>    
         {{ form_widget(form._token) }}
         {{ form_end(form, {'render_rest': false}) }}
@@ -52,13 +58,18 @@ Nuevo usuario: <br />
                 });
         
                 submitForm = function(data){
-                    console.log(data);
                         $.ajax({
                             url : '{{ app.request.getBaseURL() }}/admin/users/new',
                             method : 'POST',
                             data : data.serialize(),
                         }).done(function(data) {
-                            console.log(data);
+                             if (data.success) {
+                                alert('Registro Guardado!');
+                                $('#myModal').dialog('close');
+                                window.location.reload();
+                                return true;
+                             }
+                                $('#myModal').html(data);                 
                                 // Code in case of success
                         })                
                 };

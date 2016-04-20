@@ -80,7 +80,6 @@ security:
             anonymous: ~
             http_basic: ~
 
-
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         # no authentication for the homepage:
@@ -88,10 +87,15 @@ security:
         - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/nuevo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/activar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/rstPassword, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/sendPassword, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/usuarios/*,     roles: ROLE_USER }
         - { path: ^/admin/login,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/*,       roles: ROLE_ADMIN }
-        - { path: ^/noticias/*,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/noticias/*,   roles: IS_AUTHENTICATED_ANONYMOUSLY  }
         - { path: ^/sfp/*,     roles: ROLE_USER }
+        - { path: ^/tcg/*,     roles: ROLE_USER }
+        - { path: ^/tcg/admin/*,     roles: ROLE_ADMIN }        
+
 
         

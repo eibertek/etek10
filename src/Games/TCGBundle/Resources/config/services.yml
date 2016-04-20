@@ -1,0 +1,7 @@
+services:
+#    games_tcg.example:
+#        class: Games\TCGBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    games_tcg.deck:
+        class: Games\TCGBundle\Service\Deck
+        arguments: [ "@doctrine.orm.entity_manager" , "@templating", "@mailer" ]

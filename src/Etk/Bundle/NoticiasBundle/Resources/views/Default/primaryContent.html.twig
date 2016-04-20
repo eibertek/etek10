@@ -1,0 +1,8 @@
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
+{% block mytitle %} {{ titulo }}{% endblock %}
+{% block content %}
+<div id="container" ng-controller="exampleController">
+            {% block secondaryContent %}  {% include staticPage  %}  {%endblock %}    
+</div>
+{% endblock %}
+

@@ -23,3 +23,15 @@ etk_usuarios_registerUser:
 etk_usuarios_activar:
     path:     /activar
     defaults: { _controller: EtkUsuariosBundle:Default:activar }        
+    
+etk_usuarios_nuevapassword:
+    path:     /cambiarpassword
+    defaults: { _controller: EtkUsuariosBundle:Default:cambiarPass }            
+
+etk_usuarios_restorePassword:
+    path:     /rstPassword/{userId}
+    defaults: { _controller: EtkUsuariosBundle:Default:restorePassword }    
+
+etk_usuarios_sendPassword:
+    path:     /sendPassword/
+    defaults: { _controller: EtkUsuariosBundle:Default:sendPassword }     

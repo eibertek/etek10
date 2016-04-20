@@ -4,8 +4,8 @@
     <indexes>
       <index name="proyectoId" columns="proyectoId"/>
     </indexes>
-    <id name="id" type="guid" column="id" length="255">
-      <generator strategy="IDENTITY"/>
+    <id name="id" type="guid" column="id" >
+      <generator strategy="UUID"/>
     </id>
     <field name="descripcion" type="string" column="descripcion" length="2000" nullable="true"/>
     <field name="createddate" type="datetime" column="createdDate" nullable="true"/>

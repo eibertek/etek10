@@ -27,6 +27,7 @@
     <!-- Custom CSS -->
 
 </head>
+<body>
 {% block body %}
     <div style=" padding-top: 50px;">
     {% block navbar %}
@@ -67,7 +68,11 @@
             <!-- /.container -->
         {% if app.user %}
             <div class="pull-right center-block top-right bg-success">
-                Bienvenido {{ app.user.Nombre }} {{ app.user.Apellido }} ({{ app.user.username }})            
+                {% if app.user.Nombre is defined %}        
+                    Bienvenido {{ app.user.Nombre }} {{ app.user.Apellido }} ({{ app.user.username }})            
+                {% else %}
+                    Bienvenido Admin
+                {% endif %}    
                 <a href="{{ path('etk_usuarios_logout') }}">Salir</a>
             </div>
          {% endif %}            
@@ -79,7 +84,8 @@
         
     {% endblock %}
     </div>
-{% endblock %}
+{% endblock %}}
+</body>
 <!-- /.container -->
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/etknoticias/js/jquery.js') }}"></script>

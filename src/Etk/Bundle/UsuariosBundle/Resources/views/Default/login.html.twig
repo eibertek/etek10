@@ -1,6 +1,8 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 {% block content %}
+  <div class="etk_content">
+  
     <h1 class="title">Login</h1>
    {% for flashMessage in app.session.flashbag.get('notice') %}
        <span style="color:green; font-weight: 400"> {{ flashMessage }} </span><br/>
@@ -29,7 +31,9 @@
         <div class="error">{{ error.message }}</div>
         <div><img src="{{ asset('bundles/etknoticias/images/magicword.gif') }}"></div>
     {% endif %}
-    <a class="h3 center-block" href="{{ path("etk_usuarios_registerUser") }}"> >>> Crear Nuevo Usuario <<< </a>            
+    <a class="btn-link center-block" href="{{ path("etk_usuarios_sendPassword") }}"> olvidó su contraseña? </a>            
+    <a class="btn-lg center-block" href="{{ path("etk_usuarios_registerUser") }}"> >>> Crear Nuevo Usuario <<< </a>            
+  </div>
 {% endblock %}
 
 

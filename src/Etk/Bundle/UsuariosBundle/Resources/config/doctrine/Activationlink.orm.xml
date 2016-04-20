@@ -4,10 +4,11 @@
     <indexes>
       <index name="idx_activationlink_id" columns="id"/>
     </indexes>
-    <id name="id" type="guid" column="id">
+    <id name="id" type="guid" column="id" length="255">
       <generator strategy="UUID"/>
     </id>
     <field name="userId" type="string" column="userId" length="255" nullable="false"/>
     <field name="expireDate" type="datetime" column="expireDate" nullable="false"/>
+    <field name="method" type="string" column="method" nullable="true"/>
   </entity>
 </doctrine-mapping>

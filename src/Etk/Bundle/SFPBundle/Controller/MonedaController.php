@@ -12,7 +12,7 @@ class MonedaController extends Controller
     {
     $moneda = new moneda();
         
-        $formAlta = $this->createForm(new monedaType(), $moneda);
+        $formAlta = $this->createForm(new monedaType(), $moneda,Array('action'=>$this->generateUrl('monedaAlta'),'method'=>'POST'));
         
         $formAlta->handleRequest($request);
  

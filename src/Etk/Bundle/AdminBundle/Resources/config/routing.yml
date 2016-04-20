@@ -39,4 +39,27 @@ etk_admin_borrarNoticia:
 etk_admin_getForm_id:
     path:     /getForm/{form}/{type}/{id}
     defaults: { _controller: EtkAdminBundle:Default:getForm, id: null }    
-    
+
+games_tcg_Adminpage:
+    path:     /tcg
+    defaults: { _controller: GamesTCGBundle:Admin:index }
+
+games_tcg_mockCard:
+    path:     /tcg/mockcard
+    defaults: { _controller: GamesTCGBundle:Admin:mockCard }
+
+games_tcg_indexDeck:
+    path:     /tcg/deck/
+    defaults: { _controller: GamesTCGBundle:Deck:index }
+
+games_tcg_newDeck:
+    path:     /tcg/deck/new
+    defaults: { _controller: GamesTCGBundle:Deck:newDeck }
+
+games_tcg_modifyDeck:
+    path:     /tcg/deck/modify
+    defaults: { _controller: GamesTCGBundle:Deck:modifyDeck }
+
+games_tcg_deleteDeck:
+    path:     /tcg/deck/delete
+    defaults: { _controller: GamesTCGBundle:Deck:deleteDeck }

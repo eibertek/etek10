@@ -47,7 +47,7 @@ class registroController extends Controller
         $session = $this->getRequest()->getSession();
         $registro = new registro();
         
-        $formAlta = $this->createForm(new registroType(), $registro);        
+        $formAlta = $this->createForm(new registroType(), $registro,Array('action'=>$this->generateUrl('alta'),'method'=>'POST'));        
         $formAlta->handleRequest($request);
         //form_55bee17ee1846
         $token = $formAlta->getData()->getuniqueToken();

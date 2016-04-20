@@ -4,11 +4,16 @@
 <head>
 
     {% block meta_content_header %}
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/etknoticias/images/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('bundles/etknoticias/images/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/etknoticias/images/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('bundles/etknoticias/images/favicon-16x16.png') }}">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Diseño de paginas web, aplicaciones web">
         <meta name="author" content="Mariano Eiberman">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% endblock %}
 
     {% block stylesheets %}
@@ -22,14 +27,24 @@
         <link href="{{ asset('bundles/etknoticias/css/parallax.css') }}" rel="stylesheet">
 
     {% endblock %}
-     <title>{% block mytitle %}Parallax{% endblock %}</title>     
+     <title>{% block mytitle %}Eibertek{% endblock %}</title>     
     <!-- Custom CSS -->
 </head>
+<body>
 {% block body %}
+    <div class="information welcome photo image1">
+    </div>
+    {% block menu %} {% include 'EtkNoticiasBundle:Default:Partials/menu.html.twig' %} {%endblock %}
     <div>
     {% block content %}        
     {% endblock %}
     </div>
+{% block footer %}
+    <footer class="footer">
+        {% include 'EtkNoticiasBundle:Default:Partials/footer.html.twig' %}  
+    </footer>    
+{%endblock %}        
+</body>
 {% endblock %}
 <!-- /.container -->
 {% block javascripts %}
@@ -50,7 +65,29 @@
         });
         var app = angular.module('myApplication', ['angular-parallax']);
     </script>
-    
+ <div id="fb-root"></div>
+<script>
+  /* 
+    */  
+ $.ajaxSetup({ cache: true });
+  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId      : '975303272525600',
+      xfbml      : true,
+      version    : 'v2.5'
+    });     
+    $('#loginbutton,#feedbutton').removeAttr('disabled');
+    FB.getLoginStatus(updateStatusCallback);
+  }); 
+  
+ (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));  
+</script>   
 {% endblock %}
 
 </html>

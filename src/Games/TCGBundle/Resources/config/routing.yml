@@ -1,0 +1,4 @@
+games_tcg_homepage:
+    path:     /
+    defaults: { _controller: GamesTCGBundle:Board:index }
+

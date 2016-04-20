@@ -1,8 +1,1 @@
 services:
-    etk_admin.usuarios:
-        class: Etk\Bundle\AdminBundle\Service\Usuarios
-        arguments: [ @doctrine.orm.entity_manager ]
-     #   arguments: [@service_id, "plain_value", %parameter%]
-    etk_admin.noticias:
-        class: Etk\Bundle\AdminBundle\Service\Noticias
-        arguments: [ @doctrine.orm.entity_manager ]     

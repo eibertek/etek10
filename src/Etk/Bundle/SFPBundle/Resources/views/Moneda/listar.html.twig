@@ -1,6 +1,7 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 {% block content %}
+    <div class="etk_content">
     <h2>Monedas</h2>
     <ul>
     {% for moneda in monedas %}
@@ -13,6 +14,7 @@
         <p>{{ flashMessage }}</p>
     {% endfor %}
     <a href="{{path('monedaAlta')}}">Nueva moneda</a>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

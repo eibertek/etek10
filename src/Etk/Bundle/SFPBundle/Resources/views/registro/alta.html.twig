@@ -1,16 +1,15 @@
-{% extends 'EtkNoticiasBundle::layout.html.twig' %}
+{% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 {% block content %}
-<div class="jumbotron">
-  <h1>Nuevo Registro</h1> 
-  <p>Por favor revise los datos</p> 
+<div class="etk_header_1">
+  <h1>Nuevo registro contable</h1> 
 </div>
 <div class="info">
  {% for flashMessage in app.session.flashbag.get('registro') %}
         <p>{{ flashMessage }}</p>
  {% endfor %}
 </div>
-<div class="container">
+<div class="etk_content">
   <div class="container-fluid">
             {{ form_start(formAlta) }}
             {{ form_errors(formAlta) }}
@@ -34,6 +33,7 @@
             {{ form_errors(formAlta.sfpMoneda) }}
             {{ form_widget(formAlta.sfpMoneda, { 'attr': {'class': 'form-control'} }) }}
         </div>        
+        <a href="{{path('monedaAlta')}}">Haga click aqui para agregar monedas</a>   
         <div class="form-group">
             {{ form_label(formAlta.sfpMonto) }}
             {{ form_errors(formAlta.sfpMonto) }}
@@ -48,6 +48,7 @@
             {{ form_widget(formAlta.Guardar, { 'attr': {'class': 'btn btn-default'} }) }}
         </div>
         {{ form_end(formAlta) }}
+            <div style="margin-bottom: 50px;"> </div>
     </div> 
 </div>
 {% endblock %}

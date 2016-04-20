@@ -5,13 +5,14 @@ namespace Etk\Bundle\AdminBundle\Controller;
 use Doctrine\Common\Cache\ArrayCache;
 use Etk\Bundle\NoticiasBundle\Entity\Noticias;
 use Etk\Bundle\NoticiasBundle\Form\NoticiasType;
-use Etk\Bundle\UsuariosBundle\Form\UsuariosType;
+use Etk\Bundle\AdminBundle\Form\UsuariosType as usuariosAdmin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Etk\Bundle\UsuariosBundle\Entity\Usuarios;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Security\Core\SecurityContext;
+use Etk\Bundle\UsuariosBundle\Entity\Activationlink as ActivationEntity;
 
 class DefaultController extends Controller
 {
@@ -51,17 +52,23 @@ class DefaultController extends Controller
 
     public function getFormAction($form, $type,$id="")
     {
-      //  var_dump($form); die();
         $em = $this->getDoctrine()->getManager();
+        $activar=false;
+        $banear = false;        
         if($form=='users'){
             if($type==='edit' && $id!==''){
                 $usuarios = $em->find('EtkUsuariosBundle:Usuarios',$id);
+                if($usuarios->getStatus() !== Usuarios::ACTIVE){
+                    $activar=true;
+                }else{
+                    $banear = true;
+                }
             }else{
                 $usuarios = new Usuarios();
             }
-            $form2 = $this->createForm(new UsuariosType(), 
+            $form2 = $this->createForm(new usuariosAdmin(), 
                                       $usuarios, 
-                                      Array('action'=>'','method'=>'POST')
+                                      Array('action'=>'','method'=>'POST','activar'=>$activar, 'banear'=>$banear)
                                       );        
             $dataInfo = $usuarios;
         }
@@ -74,7 +81,7 @@ class DefaultController extends Controller
             $dataInfo = $noticias;
         }        
         return $this->render('EtkAdminBundle:'.$form.':form_'.$type.'.html.twig', 
-                             array(  'form' => $form2->createView(),'data' => $dataInfo ));
+                             array(  'form' => $form2->createView(),'data' => $dataInfo, 'api_key'=>$this->getApiKey() ));
     }
     
     
@@ -101,33 +108,60 @@ class DefaultController extends Controller
     {
 
         $usuarios = new Usuarios();
-        $form = $this->createForm(new UsuariosType(), $usuarios, Array('action'=>'','method'=>'POST'));
-
-        $form->handleRequest($request);
+        $form = $this->createForm(new usuariosAdmin(), $usuarios, Array('action'=>'','method'=>'POST'));
+        if(!$request->isXmlHttpRequest()) {
+                $response = new Response();
+                $response->setStatusCode(500);
+                return $response;
+        };
+        $response = new Response();        
+        $response->headers->set('Content-Type', 'application/json');
+        $form->handleRequest($request);        
         if ($request->isMethod('POST')) {
             if ($form->isValid()) {
-                var_dump($request); die();
-                
                 // guardar la tarea en la base de datos
                 $usuarios = $form->getData();
+                if (!$this->get('etk_admin.usuarios')->validate($usuarios)) {
+                    $this->get('session')->getFlashBag()->add('error', 'El Usuario que intenta crear ya está registrado, si no recuerda su contraseña vaya al login y haga click en recuperar contraseña');
+                    return $this->render('EtkAdminBundle:users:form_new.html.twig', 
+                                        array(  'form' => $form->createView()));             
+                }                
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($usuarios);
-                $pasword = $encoder->encodePassword($usuarios->getPassword(), $usuarios->getSalt());
+                $pasword = $encoder->encodePassword($usuarios->getPlainPassword(), $usuarios->getSalt());
                 $usuarios->setPassword($pasword);
                 $usuarios->setCreateddate(new \DateTime("now"));
                 $usuarios->setRole('ROLE_USER');
-                $usuarios->setStatus(UsuarioEntity::NOT_VALIDATED);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($usuarios);
-                $em->flush();
-                return $this->render('EtkAdminBundle:default:success.html.twig', array(  'msg' => 'Se ha creado el usuario con exito', 'path' => 'etk_admin_users'));
+                $em = $this->getDoctrine()->getManager();                
+                if($form['activate']->getData()){
+                    $usuarios->setStatus(Usuarios::ACTIVE);  
+                    $em->persist($usuarios);
+                    $em->flush();                    
+                }else{
+                    $usuarios->setStatus(Usuarios::NOT_VALIDATED);   
+                    $em->persist($usuarios);
+                    $em->flush();                    
+                    $activationLink = new ActivationEntity();
+                    $activationLink->setUserId($usuarios->getId());
+                    $activationLink->setExpireDate( new \DateTime('tomorrow'));
+                    $em->persist($activationLink);
+                    $em->flush();
+                    $this->get('etk_admin.usuarios')->sendmail($usuarios,$activationLink->getId());                    
+                }
+                $output = array('success' => true, 'usuario'=>$usuarios);
+                $response->setContent(json_encode($output));
+                return $response;
             }else{
-//                var_dump($form->getErrorsAsString());
-                return $this->render('EtkAdminBundle:default:success.html.twig', array(  'msg' => $form->getErrorsAsString(), 'path' => 'etk_admin_users'));
+                    return $this->render('EtkAdminBundle:users:form_new.html.twig', 
+                             array(  'form' => $form->createView()));                
+              //  return $this->render('EtkAdminBundle:users:newUser.html.twig', array(  'form' => $form->createView(),));
             }
         }else{
                 return $this->render('EtkAdminBundle:default:success.html.twig', array(  'msg' => 'Errores', 'path' => 'etk_admin_users'));
         }
+        $response = new Response();
+        $response->setStatusCode(401);
+        return $response;        
     }
 
     public function newNoticiaAction(Request $request)
@@ -210,5 +244,28 @@ class DefaultController extends Controller
 
     }
 
+    
+    /**
+    * List all errors of a given bound form.
+    *
+    * @param Form $form
+    *
+    * @return array
+    */
+   protected function getFormErrors($form)
+   {
+        $local_errors = array();
+        foreach($form->getIterator() as $field=>$value){
+            foreach($value->getErrors(true,true) as $key2 => $value2)
+                {
+                     $local_errors[$value->getName()]['name']    = $value->getName();
+                     $local_errors[$value->getName()]['message'] = $value2->getMessage();                
+                }
+
+        }
+       
+        return $local_errors;
+
+   }
 
 }

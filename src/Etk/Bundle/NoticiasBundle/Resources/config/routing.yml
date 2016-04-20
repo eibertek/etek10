@@ -1,5 +1,5 @@
 etk_noticias_index:
-    path:     /
+    path:     /pruebas
     defaults: { _controller: EtkNoticiasBundle:Default:index }
 
 etk_contact:

@@ -1,17 +1,18 @@
 <?php
 
-namespace Etk\Bundle\AdminBundle\Service;
+namespace Etk\Bundle\NoticiasBundle\Service;
+
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class Usuarios
+class Noticias
 {
   protected $em;
 
-  public function __construct(\Doctrine\ORM\EntityManager $em)
+  public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Bundle\TwigBundle\TwigEngine $twig, \Swift_Mailer $mailer)
   {
     $this->em = $em;
   }
@@ -19,23 +20,29 @@ class Usuarios
     public function getList()
     {
 
-        $repository = $this->em->getRepository('EtkUsuariosBundle:Usuarios')
+        $repository = $this->em->getRepository('EtkNoticiasBundle:Noticias')
                            ->findAll();
-        return $repository;
-
+        if($repository && count($repository)>0){
+            return $repository;
+        }else{
+            return false;            
+        }
     }
     
-    public function getUser($id)
+    public function getNoticia($id)
     {
-        $repository = $this->em->getRepository('EtkUsuariosBundle:Usuarios')
+        $repository = $this->em->getRepository('EtkNoticiasBundle:Noticias')
                            ->find($id);
         if(!$repository) return false;
         return $repository;        
     }
     
-    public function banUser($id)
+    public function getComentario($idNoticia)
     {
-        
+        $repository = $this->em->getRepository('EtkNoticiasBundle:NoticiasComentario')
+                           ->find($id);
+        if(!$repository) return false;
+        return $repository;         
     }
     
     public function serialize($data, $format='json'){

@@ -1,31 +1,11 @@
 {% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
 
 
-{% block mytitle %}Pagina en Version Parallax{% endblock %}
-
 {% block content %}
 <div id="container" ng-controller="exampleController">
-    <div parallax-background  class="photo image1" parallax-ratio="0.2" >
-        <div class="information welcome">
-            <div>Bienvenido: </div>
-            <div> Esta es una pagina de pruebas, 
-                donde pongo trabajos o modulos que voy haciendo, 
-                ya sea por diversión o curiosidad...<br/>
-            </div>    
-            <div class="modulos finanzas">
-                Modulo finanzas <br/> <a href="{{ path('sfp_index') }}" alt="Click para entrar" class="btn btnEnter"></a>
-            </div>
-            <div class="modulos usuarios">
-                Modulo Usuarios <br/> <a href="{{ path('etk_usuarios_homepage') }}" alt="Click para entrar" class="btn btnEnter"></a>
-            </div>
-        </div>
-    </div>
+            {% block noticias %}  {% include 'EtkNoticiasBundle:Default:Partials/noticias.html.twig' %}  {%endblock %}    
 </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-<script>
-    app.controller('exampleController',function($scope){
-    });
-</script>
 {% endblock %}

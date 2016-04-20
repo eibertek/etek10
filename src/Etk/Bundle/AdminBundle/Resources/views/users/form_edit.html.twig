@@ -40,9 +40,20 @@ Editar usuario: <br />
                 {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
             </div>  
 -->         
-            <div class="space-all-10"> <button type="button" class="btn btn-default" id="resetPassword_{{data.id}}"> Reset Password </button> </div>
-            <div class="space-all-10"> <button  type="button"class="btn btn-default" id="banUser_{{data.id}}"> Ban User </button> </div>
-            <div class="space-all-10"><button type="button" class="btn btn-default" id="Activar_{{data.id}}"> Activar User </button> </div>
+            {% if form.Activar is defined %}
+            <div class="form-group">
+                <button type="button" class="btn btn-default" id="btn_activar_user">Activar</button>
+            </div>
+            {% endif %}
+            {% if form.Banear is defined %}
+            <div class="form-group">
+                <button type="button" class="btn btn-default" id="btn_ban_user">Banear</button>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <button type="button" class="btn btn-default btn-danger" id="btn_delete_user">Borrar</button>
+            </div>
+            
         </div>    
         {{ form_widget(form._token) }}
         {{ form_end(form, {'render_rest': false}) }}
@@ -52,4 +63,46 @@ Editar usuario: <br />
                 $('#btn_cancel_form').click(function(){
                     $('#myModal').dialog('close');
                 });
+                $('#btn_delete_user').click(function(){
+                    borrarUsuario("{{ data.id }}");
+                });                 
+                $('#btn_activar_user').click(function(){
+                    activarUsuario("{{ data.id }}");
+                });     
+                
+                    borrarUsuario = function(id){
+                        $.ajax({
+                            url : '{{ app.request.getBaseURL() }}/api/deleteUser/'+id,
+                            method : 'GET',
+                            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', '{{ api_key }}');},
+                        }).done(function(data) {
+                            console.log(data);
+                             if (data.status === "OK" ) {
+                                alert('Usuario Borrado');
+                                $('#myModal').dialog('close');
+                                window.location.reload();
+                                return true;
+                             } else { 
+                                 alert('Error');
+                             }
+                        })                
+                    };
+
+                    activarUsuario = function(id){
+                        $.ajax({
+                            url : '{{ app.request.getBaseURL() }}/api/activateUser/'+id,
+                            method : 'GET',
+                            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', '{{ api_key }}');},
+                        }).done(function(data) {
+                            console.log(data);
+                             if (data.status === "OK" ) {
+                                alert('Usuario Activado');
+                                $('#myModal').dialog('close');
+                                window.location.reload();
+                                return true;
+                             } else { 
+                                 alert('Error');
+                             }
+                        })                
+                    };
      </script>     

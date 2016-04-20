@@ -47,7 +47,7 @@
        $('.edit.user').click(function(){
            form = 'users';
            type= 'edit';
-           console.log(this.id.substr(5));
+        //   console.log(this.id.substr(5));
            id= this.id.substr(5);
             $.ajax('{{ app.request.getBaseURL() }}/admin/getForm/'+form+'/'+type+'/'+id).done( function(data){
                 $('#myModal').dialog({ width:'80%', modal: true,}).prev(".ui-dialog-titlebar").css("background","green");   

@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Activationlink
 {
+
+    const METHOD_ACTIVATE = 'ACTIVATE';
+    const METHOD_PASSWORD = 'PASSWORD';
     /**
      * @ORM\Column(type="guid")
      * @ORM\Id
@@ -34,6 +37,12 @@ class Activationlink
      */
     private $expireDate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="method", type="string", length=255)
+     */
+    private $method;
 
     /**
      * Get id
@@ -82,6 +91,31 @@ class Activationlink
     }
 
     /**
+     * Get method
+     *
+     * @return \string 
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+    
+    /**
+     * Set method
+     *
+     * @param \string $method
+     * @return Activationlink
+     */
+    public function setMethod($method)
+    {
+        if($method === self::METHOD_ACTIVATE || $method === self::METHOD_PASSWORD ){
+            $this->method = $method;
+            return $this;
+        }
+        return false;
+    }
+
+    /**
      * Get expireDate
      *
      * @return \DateTime 
@@ -89,5 +123,5 @@ class Activationlink
     public function getExpireDate()
     {
         return $this->expireDate;
-    }
+    }    
 }
