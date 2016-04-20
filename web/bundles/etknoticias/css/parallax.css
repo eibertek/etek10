@@ -1,0 +1,136 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/01/2016, 11:51:06
+    Author     : eibertek
+*/
+/* latin */
+@font-face {
+  font-family: Share-Regular;
+  src: local('Share-Regular'), url(Share-Regular.ttf);
+ // unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+html,body {
+    height: 100%;
+    background-color: grey; 
+}
+
+.parallax {
+  position:absolute;
+  left: 0;
+  top: 0;
+}
+
+.information.welcome {
+    padding-top: 30px;
+    text-shadow: 1px 0px 4px rgba(0,0,0, 0.5);
+    width: 100%;
+}
+
+.modulos {
+    display: block;
+    margin: 40px auto;
+    width: 50%;
+}
+
+.finanzas {
+    font-size: 60px;
+}
+
+.usuarios {
+    font-size: 60px;
+}
+.image1 {
+    background-image: url("../images/opl-parallax-universe.jpg");
+    background-position: center;
+    background-size: contain;
+    background-attachment: fixed;
+    background-repeat: repeat;
+}
+.image2 {
+    background-image: url("../images/informatic2.jpg");
+}
+
+.image3 {
+    background-image: url("../images/universe1.jpg");
+    height: 900px;
+}
+
+a.btnEnter{
+    background-image: url("../images/enter_btn.png");
+    background-size: 100px;
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px;
+}
+.logo-etk {
+   width: 30px;
+   margin: 5px;
+   vertical-align: middle; 
+   display: inline-block;
+}
+
+.helper {
+    line-height: 30px;
+}
+
+a.btnEnter:active{
+    background-image: url("../images/enter_btn.png");
+    -webkit-filter:invert(100%);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(invert='1');   
+}
+#container {
+        color: white;
+	font: 20px/1 'Share-Regular', cursive;
+	text-shadow: 0px 0px 4px rgba(255,255,255, 0.5);
+}
+.photo {
+  background-attachment: fixed;
+  background-position: 50% 0%;
+  background-repeat: no-repeat;
+  background-color: grey; 
+  position: relative;
+}
+
+.welcome h1 {
+    text-align: center;
+}
+
+.noticia-boxed {
+    margin-top:10px;
+    border: #cdcdcd medium solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    height: 240px;
+    overflow: auto;
+}
+
+.footer-etk {
+    background-color: #e7e7e7;
+    color: black;
+}
+
+.facebook-page {
+    margin-top: 10px;
+    clear:right;
+}
+
+.etk_header_1{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.etk_content{
+    background-color: #ffffff; 
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
+

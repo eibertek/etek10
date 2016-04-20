@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: eibertek
+    database_user: eibertek
+    database_password: m4a5y8o2
+    mailer_transport: gmail
+    mailer_host: ~
+    mailer_user: mariano.eiberman@gmail.com
+    mailer_password: viswzkcxzucbsctc
+    database_driver: pdo_mysql
+    locale: en
+    secret: 8a486a01ebccb283707dfb9c13e0a1b2add9b4e7
