@@ -10,9 +10,10 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Doctrine\ORM\Query;
 use Games\TCGBundle\Entity\deck as DeckEntity;
+use Games\TCGBundle\Entity\card as CardEntity;
 use Games\TCGBundle\Service\service as games_service;
 
-class Deck extends games_service
+class Card extends games_service
 {
   protected $em;
   protected $twig;

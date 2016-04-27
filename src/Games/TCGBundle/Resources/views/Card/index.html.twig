@@ -24,13 +24,24 @@ Tareas para La pagina de administracion de TCG:<br />
 <ul class="list-group">
     <li> 
         Deck
-        <li class="list-group-item-danger"><a href="{{ path('games_tcg_newDeck') }}">Crear nuevo Mazo</a></li>
+        <li class="list-group-item-danger"><a href="{{ path('games_tcg_CardNew') }}">Crear nueva Carta</a></li>
         <ul>
-    {% for deck in data %}
+<!-- object(Games\TCGBundle\Entity\card)[424]
+      private 'CardId' => resource(432, stream)
+      private 'StringId' => string '' (length=0)
+      private 'Life' => float 10000
+      private 'Energy' => float 4
+      private 'Defense' => float 2000
+      private 'Attack' => float 2000
+      private 'Title' => string 'Carta Suprema' (length=13)
+      private 'Image' => resource(434, stream)
+      private 'Subtitle' => string 'Esta cartas es de prueba' (length=24)
+      private 'Description' => string 'Carta de Prueba' (length=15)
+      private 'Leyend' => string 'Probando la carta' (length=17)
+-->            
+    {% for card in data %}
         <li class="list-group-item-danger">
-            <span class="{{ deck.Premium ? 'deck-premium' : '' }} {{ deck.Active ? 'deck-active' : 'deck-disabled' }}">  {{ deck.Name }} </span>
-            <a href="{{ path('games_tcg_modifyDeck') }}?deckid={{ deck.stringId }}">Modificar</a>
-            <button class="button" onclick="deck.delete('.liveMessages','{{ deck.stringId }}');">Borrar</button>
+            <img src="data:image/jpg;base64,{{ card.Image }}" width="50px"/>
         </li>
     {% endfor %}
         </ul>
@@ -39,7 +50,6 @@ Tareas para La pagina de administracion de TCG:<br />
 </div>
 <div class='separator'></div>
 <div>Cartas</div>
-<div>Nueva Carta</div>
 <ul>
     <li></li>
 </ul>    

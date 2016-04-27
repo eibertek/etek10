@@ -231,7 +231,8 @@ class card
      */
     public function getImage()
     {
-        return $this->Image;
+        //return base64_encode($this->Image);
+        return stream_get_contents($this->Image);
     }
 
     /**

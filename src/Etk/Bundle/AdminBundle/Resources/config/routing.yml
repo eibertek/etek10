@@ -63,3 +63,13 @@ games_tcg_modifyDeck:
 games_tcg_deleteDeck:
     path:     /tcg/deck/delete
     defaults: { _controller: GamesTCGBundle:Deck:deleteDeck }
+games_tcg_CardIndex:
+    path:     /tcg/card/
+    defaults: { _controller: GamesTCGBundle:Card:index }
+games_tcg_CardNew:
+    path:     /tcg/card/new
+    defaults: { _controller: GamesTCGBundle:Card:newCard }
+games_tcg_CardModify:    
+    path:     /tcg/card/modify
+    defaults: { _controller: GamesTCGBundle:Card:modifyCard }
+    
