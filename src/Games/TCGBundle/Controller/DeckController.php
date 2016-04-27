@@ -7,8 +7,9 @@ use Games\TCGBundle\Entity\deck;
 use Games\TCGBundle\Form\DeckType;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
+use Games\TCGBundle\Controller\AdminController;
 
-class DeckController extends Controller
+class DeckController extends AdminController
 {
     public function indexAction(Request $request)
     {
@@ -20,7 +21,9 @@ class DeckController extends Controller
         }else{
             $data = $this->get('games_tcg.deck')->getList();
         }
-        return $this->render('GamesTCGBundle:Deck:index.html.twig',Array('data'=>$data));
+        return $this->render('GamesTCGBundle:Deck:index.html.twig',Array(
+                                                                    'apiKey'=>$this->getApiKey(),
+                                                                    'data'=>$data));
     }
     
     /*
@@ -34,7 +37,7 @@ class DeckController extends Controller
         $lastId=$this->get('session')->getFlashBag()->get('lastId');
         if( isset($lastId[0])  )
         {
-            $this->redirectToRoute('games_tcg_indexDeck');
+           return  $this->redirectToRoute('games_tcg_indexDeck');
         }
         $form->handleRequest($request);        
         if ($request->isMethod('POST')) {
@@ -44,6 +47,8 @@ class DeckController extends Controller
                 $this->get('session')->getFlashBag()->add('lastId', $deckEntity->getDeckId());
                 $em->flush($deckEntity);
                 unset($_POST);
+                $this->get('session')->getFlashBag()->add('info', 'Mazo creado!');
+                return $this->redirectToRoute('games_tcg_indexDeck');
             }
         }
         return $this->render('GamesTCGBundle:Deck:newDeck.html.twig',Array('deckForm'=>$form->createView()));
@@ -52,15 +57,35 @@ class DeckController extends Controller
     /*
      * 
      */
-    public function modifyDeckAction(){    
-        return $this->render('GamesTCGBundle:Deck:modifyDeck.html.twig');
+    public function modifyDeckAction(Request $req){    
+       $deckId = $req->get('deckid');
+        $deckEntity = $this->get('games_tcg.deck')->getDeck($deckId);
+        if($deckEntity === false){
+            return $this->redirectToRoute('games_tcg_indexDeck');            
+        }
+        $form = $this->createForm(new DeckType(), $deckEntity, Array('action'=>'','method'=>'POST'));
+        $form->handleRequest($req);        
+        if ($req->isMethod('POST')) {
+            if ($form->isValid()) {
+                if($this->get('games_tcg.deck')->modifyDeck($deckId, $deckEntity)){
+                    unset($_POST);
+                    $this->get('session')->getFlashBag()->add('info', 'Se ha modificado el Mazo '. $deckEntity->getName());
+                    return $this->redirectToRoute('games_tcg_indexDeck');                    
+                }
+            }
+        }        
+        return $this->render('GamesTCGBundle:Deck:modifyDeck.html.twig',Array('deckForm'=>$form->createView()));
     }
     
     /*
      * 
      */
     public function deleteDeckAction(){
-        return $this->render('GamesTCGBundle:Deck:deleteDeck.html.twig');
+        return $this->render('GamesTCGBundle:Deck:deleteDeck.html.twig',
+                             Array(
+                                 'apiKey'=>$this->getApiKey()
+                                  )
+                            );
     }    
 
     /*

@@ -15,6 +15,15 @@
 {% block content %}
 <div id="container" class="container-fluid" ng-controller="exampleController">
 Modificar Mazo de cartas:
-
+<div class="Errores">
+   {% for flashMessage in app.session.flashbag.get('error') %}
+       <span style="color:red; font-weight: 400"> {{ flashMessage }} </span><br/>
+   {% endfor %} 
+</div>
+    <div class="container-fluid">
+            {{ form_start(deckForm) }}
+            {{ form_errors(deckForm) }}
+            {{ form_end(deckForm, {'render_rest': true}) }}
+     </div>
 </div>
 {% endblock %}

@@ -17,3 +17,8 @@ etk_api_ban_user:
 etk_api_activate_user:
     path:     /activateUser/{id}
     defaults: { _controller: EtkApiBundle:Usuarios:activateUser }    
+
+etk_api_delete_deck:
+    path:     /deleteDeck/{deckId}
+    defaults: { _controller: EtkApiBundle:Deck:deleteDeck }       
+    

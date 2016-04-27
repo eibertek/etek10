@@ -13,7 +13,10 @@ class card
      * @var binary
      */
     private $CardId;
-
+    /**
+     * @var guid
+     */
+    private $StringId;
     /**
      * @var float
      */
@@ -70,6 +73,29 @@ class card
         return $this->CardId;
     }
 
+    /**
+     * Set StringId
+     *
+     * @param string 
+     * @return deck
+     */
+    public function setStringId($stringId)
+    {
+        $this->StringId = $stringId;
+
+        return $this;
+    }
+
+    /**
+     * Get StringId
+     *
+     * @return boolean 
+     */
+    public function getStringId()
+    {
+        return $this->StringId;
+    }
+    
     /**
      * Set Life
      *
@@ -291,7 +317,10 @@ class card
 
         $service = $kernel->getContainer()->get('etk_admin.usuarios');
         $uuid = $service->getUUID();
-     
-        return $uuid;
+        if(isset($uuid[0]) && isset($uuid[0]['uuid()'])){
+                $this->setStringId($uuid[0]['uuid()']);
+                $this->CardId = $uuid[0]['uuid()'];
+        }
+        return true;
     }
 }

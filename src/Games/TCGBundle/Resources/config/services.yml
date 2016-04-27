@@ -5,3 +5,6 @@ services:
     games_tcg.deck:
         class: Games\TCGBundle\Service\Deck
         arguments: [ "@doctrine.orm.entity_manager" , "@templating", "@mailer" ]
+    games_tcg.card:
+        class: Games\TCGBundle\Service\Card
+        arguments: [ "@doctrine.orm.entity_manager" , "@templating", "@mailer" ]

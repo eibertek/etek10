@@ -66,10 +66,10 @@ class deck
         return $this->Premium;
     }
 
-        /**
-     * Set Premium
+    /**
+     * Set StringId
      *
-     * @param boolean $premium
+     * @param string 
      * @return deck
      */
     public function setStringId($stringId)
@@ -80,7 +80,7 @@ class deck
     }
 
     /**
-     * Get Premium
+     * Get StringId
      *
      * @return boolean 
      */

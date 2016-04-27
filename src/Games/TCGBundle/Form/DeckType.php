@@ -23,7 +23,7 @@ class DeckType extends AbstractType
             ));
         * */
            $builder->add('Name', null, Array('label'=>'Nombre del Mazo:'));
-           $builder->add('Active', 'checkbox', Array('label'=>'Activo:'));           
+           $builder->add('Active', 'checkbox', Array('label'=>'Activo:', 'required'=>false));           
            $builder->add('Premium', 'checkbox', Array('label'=>'Premium:', 'required'=>false));                      
            $builder->add('Guardar','submit');
            $builder->getForm();

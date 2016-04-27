@@ -8,8 +8,6 @@ Games\TCGBundle\Entity\card:
             nullable: false
             fixed: false
             id: true
-            generator:
-                strategy: UUID
     lifecycleCallbacks:
       prePersist: [ generateId ]
     fields:
@@ -42,3 +40,6 @@ Games\TCGBundle\Entity\card:
         Leyend:
             type: text
             nullable: false
+        StringId:
+            type: string
+            nullable: false             

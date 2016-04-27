@@ -28,19 +28,27 @@ class Deck extends games_service
   
     public function getList()
     {
-        $repository = $this->em->getRepository('GamesTCGBundle:deck')
+        $repository = $this->em->getRepository('GamesTCGBundle:card')
                            ->findAll();
         return $repository;
     }
     
-    public function getDeck($id)
+    public function getCard($id)
     {
-        $repository = $this->em->getRepository('GamesTCGBundle:deck')
+        $repository = $this->em->getRepository('GamesTCGBundle:card')
                            ->find($id);
         if(!$repository) return false;
         return $repository;        
     }
 
+    public function registerCard($card)
+    {
+        $repository = $this->em->getRepository('GamesTCGBundle:card')
+                           ->find($id);
+        if(!$repository) return false;
+        return $repository;        
+    }
+    
     public function getDeckByName($name)
     {
         $repository = $this->em->getRepository('GamesTCGBundle:deck')

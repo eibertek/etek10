@@ -11,6 +11,7 @@ namespace Games\TCGBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Debug\Debug;
 use Games\TCGBundle\Entity\card;
+use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
 {
@@ -29,7 +30,7 @@ class AdminController extends Controller
         return $this->api_Key;
     }
         
-    public function indexAction()
+    public function indexAction(Request $resquest)
     {
         $securityContext = $this->container->get('security.token_storage');
         return $this->render('GamesTCGBundle:Admin:index.html.twig');

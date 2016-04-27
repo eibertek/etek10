@@ -30,3 +30,10 @@
 .user.NOT_VALIDATED{ color: red}
 .user.ACTIVE{ color: black}
 
+.deck-premium {
+    font-weight: bolder;
+}
+
+.deck-disabled {
+    text-decoration: line-through;
+}
