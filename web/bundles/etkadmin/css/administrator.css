@@ -37,3 +37,26 @@
 .deck-disabled {
     text-decoration: line-through;
 }
+
+.grey {
+    background-color: #DDDDDD;
+}
+
+.white {}
+
+.card_image{
+    width: 100px;
+}
+
+.card_title{
+    
+}
+
+.card_description{
+    width:200px;
+    margin: 20px;
+}
+
+.card_delete_btn{
+    margin:10px;
+}

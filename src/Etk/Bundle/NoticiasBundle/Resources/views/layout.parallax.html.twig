@@ -69,8 +69,12 @@
 <script>
   /* 
     */  
+try{   
  $.ajaxSetup({ cache: true });
-  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+ updateStatusCallback = function(){
+     console.log('callback');
+ };
+ $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
     FB.init({
       appId      : '975303272525600',
       xfbml      : true,
@@ -87,6 +91,9 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));  
+} catch( e){
+    console.log(e)
+}      
 </script>   
 {% endblock %}
 

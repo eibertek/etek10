@@ -1,0 +1,80 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05/05/2016, 06:53:52
+    Author     : eibertek
+*/
+
+#game_canvas {
+    width:700px;
+    height:650px;
+    background: #FFFFFF;
+    margin-left: 20px;
+}
+
+.gameplace {
+    width:350px;
+    height:650px;
+    position:relative;    
+}
+
+.gameplace.player1{
+    float:left;
+    background-color: #0081C2;
+}
+.gameplace.player2{
+    float:right;
+    background-color: #ff6666;
+    
+}
+
+.card_element{
+    position:absolute;
+    width:80px;
+    height:100px;
+    background: #3498db;
+}
+
+.deck{
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.spawn{
+    background: #CCCCCC;
+}
+
+.spawndeck {
+    position:absolute;
+}
+
+.spawndeck.player1{
+    top: 20px;
+    left: 20px;
+}
+
+.spawndeck.player2{
+    bottom: 20px;
+    right: 20px;
+}
+.spawnAcard{
+    background: #CCDDCC;
+    opacity: 30;
+}
+
+.spawnHcard{
+    background: #CCDDCC;
+    box-shadow: 5px 5px 3px #888888;
+    border: 1px solid #000;
+}
+
+.spawncementery {
+    background-color: #333;
+}
+
+
+#subtaskButton{
+    color:#000;
+}

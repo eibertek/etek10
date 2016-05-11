@@ -38,7 +38,7 @@ class AdminController extends Controller
     
     public function mockCardAction()
     {
-        $image = 'aaaaaaaaaaaa';file_get_contents('http://www.4geekslikeyou.com/wp-content/uploads/2014/02/goku_by_maffo1989-d4vxux4.png');
+        $image = file_get_contents('http://www.4geekslikeyou.com/wp-content/uploads/2014/02/goku_by_maffo1989-d4vxux4.png');
         $securityContext = $this->container->get('security.token_storage');
         $card = new card();
         $card->setAttack(2000);

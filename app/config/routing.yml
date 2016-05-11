@@ -12,8 +12,9 @@ etk_sfp:
 
 etk_admin:
     resource: "@EtkAdminBundle/Resources/config/routing.yml"
-    prefix:   /admin
+    prefix:  /admin
 
+ 
 EtkNoticiasBundle:
        resource: "@EtkNoticiasBundle/Resources/config/routing.yml"
        prefix:   /noticias

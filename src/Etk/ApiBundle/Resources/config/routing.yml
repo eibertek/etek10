@@ -21,4 +21,12 @@ etk_api_activate_user:
 etk_api_delete_deck:
     path:     /deleteDeck/{deckId}
     defaults: { _controller: EtkApiBundle:Deck:deleteDeck }       
-    
+
+etk_api_delete_card:
+    path:     /deleteCard/{cardId}
+    defaults: { _controller: EtkApiBundle:Card:deleteCard }       
+
+etk_api_generate_deck:
+    path:     /generateDeck
+    defaults: { _controller: EtkApiBundle:Deck:generateDeck }
+

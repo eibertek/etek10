@@ -8,3 +8,7 @@ services:
     games_tcg.card:
         class: Games\TCGBundle\Service\Card
         arguments: [ "@doctrine.orm.entity_manager" , "@templating", "@mailer" ]
+    games_tcg.FiltersTwigExtension:
+        class: Games\TCGBundle\Twig\Extension\FiltersTwigExtension
+        tags:
+            - { name: twig.extension }

@@ -1,7 +1,43 @@
 {% extends 'EtkNoticiasBundle::layout.parallax.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
 
+    <link href="{{ asset('games/css/tcg_game.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block content %}
-<div id="container" ng-controller="exampleController">
-Hello
+<div id="container" >
+    <button id='subtaskButton'>+</button><div class="subtask">
+    Cosas que hay que hacer:
+    <li>Generar en el tablero los mazos y los espacios de carta activa y cementerio</li>
+    <li>Step 1, tomar una carta - la misma se debera colocar automaticamente en el espacio</li>
+    <li>Step 2 - posicionar carta en atacar</li>
+    <li>Step 3 - Atacar </li>
+    <li>Step 4 - Enviar carta al cementerio</li>
+    </div>
+    <div id="game_canvas">
+        <div class='gameplace player1'></div>
+        <div class='gameplace player2'></div>
+    </div>
 </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('games/js/Board.js') }}"></script>
+    <script>
+        $('.subtask').hide();
+        $('#subtaskButton').click(function(){
+            $('.subtask').toggle();    
+        });
+        $mockDb={};
+        $.ajax({
+                url : '{{ path('etk_api_generate_deck') }}',
+                method : 'POST',
+                beforeSend: function(xhr){xhr.setRequestHeader('Authorization', '{{ api_key }}');},
+            }).done(function(data) {
+                 $mockDb = data;
+                 window.board = new Board();                             
+            })                    
+    </script>    
+{% endblock %}
+

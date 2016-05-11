@@ -1,1 +1,37 @@
 {# empty Twig template #}
+{% extends 'EtkAdminBundle::admin.layout.html.twig' %}
+{% block menu %}
+<script language="javascript" type="text/javascript" src="{{ asset('bundles/etknoticias/tinymce/tinymce.min.js') }}"></script>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{{ path('games_tcg_homepage') }}">Trading Card Game</a>
+        </li>
+        <li>
+            <a href="{{ path('etk_admin_logout') }}">Salir</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}   
+{% block content %}
+<div id="container" class="container-fluid" ng-controller="exampleController">
+Nuevo Mazo de cartas:
+<!-- FOrmulario de nuevo mazo -->
+<div class="Errores">
+   {% for flashMessage in app.session.flashbag.get('error') %}
+       <span style="color:red; font-weight: 400"> {{ flashMessage }} </span><br/>
+   {% endfor %} 
+</div>
+    <div class="container-fluid">
+            {{ form_start(cardForm) }}
+            {{ form_errors(cardForm) }}
+            {{ form_end(cardForm, {'render_rest': true}) }}
+     </div>
+</div>
+<script language="javascript" type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+        });
+
+</script>
+{% endblock %}

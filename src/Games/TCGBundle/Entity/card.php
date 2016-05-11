@@ -231,8 +231,7 @@ class card
      */
     public function getImage()
     {
-        //return base64_encode($this->Image);
-        return stream_get_contents($this->Image);
+        return $this->Image;    
     }
 
     /**
@@ -322,6 +321,50 @@ class card
                 $this->setStringId($uuid[0]['uuid()']);
                 $this->CardId = $uuid[0]['uuid()'];
         }
+        $this->upload($uuid);
         return true;
     }
+    
+    public function getImageFile(){
+        return $this->getUploadDir().'/'.$this->Image;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return '/games/cards';
+    }
+    
+    public function upload($uniqueId)
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getImage()) {
+            return;
+        }
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        if( $this->getImage()->guessClientExtension() == "jpeg") {
+            $fileName = uniqid('IMG_').'.jpg';
+        }elseif($this->getImage()->guessClientExtension() == "png"){
+            $fileName = uniqid('IMG_').'.png';
+        }
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getImage()->move(
+            $this->getUploadRootDir(),
+            $fileName
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->Image = $fileName;
+
+    }    
 }

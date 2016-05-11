@@ -29,7 +29,7 @@ Games\TCGBundle\Entity\card:
             length: 2000
             fixed: false            
         Image:
-            type: blob
+            type: text
             nullable: false
         Subtitle:
             type: text

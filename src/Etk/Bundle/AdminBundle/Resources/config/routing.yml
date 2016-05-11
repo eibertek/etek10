@@ -65,10 +65,10 @@ games_tcg_deleteDeck:
     defaults: { _controller: GamesTCGBundle:Deck:deleteDeck }
 games_tcg_CardIndex:
     path:     /tcg/card/
-    defaults: { _controller: GamesTCGBundle:Card:index }
+    defaults: { _controller: GamesTCGBundle:Card:index}
 games_tcg_CardNew:
-    path:     /tcg/card/new
-    defaults: { _controller: GamesTCGBundle:Card:newCard }
+    path:     /tcg/card/new/{_locale}
+    defaults: { _controller: GamesTCGBundle:Card:newCard, _locale: 'en' }
 games_tcg_CardModify:    
     path:     /tcg/card/modify
     defaults: { _controller: GamesTCGBundle:Card:modifyCard }

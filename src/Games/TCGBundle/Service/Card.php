@@ -125,15 +125,15 @@ class Card extends games_service
         return false;
     }
     
-    public function deleteDeck($deckId)
+    public function deleteCard($cardId)
     {
         //get by id
-        if($deckId != ""){
+        if($cardId != ""){
             try {
-                $deck = $this->getDeck($deckId);
-                if($deck){
-                    $this->em->remove($deck);
-                    $this->em->flush($deck);                            
+                $card = $this->getCard($cardId);
+                if($card){
+                    $this->em->remove($card);
+                    $this->em->flush($card);                            
                 }else{
                     throw new \Exception('Bad Id');
                 }
